@@ -1,7 +1,6 @@
-﻿// Some platforms may report incorrect finger ID data, or be too strict with how close a finger must be between taps
-// If you're developing on a platform or device like this, you can uncomment this to enable manual override of the ID.
-//#define LEAN_ALLOW_RECLAIM
-
+﻿//一部のプラットフォームでは、誤った指IDデータが報告されたり、タップ間の指の距離が厳しすぎたりする場合がある
+//このようなプラットフォームまたはデバイスで開発している場合は、コメントを外してIDの手動オーバーライドを有効にすることができる
+//＃define LEAN_ALLOW_RECLAIM
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ using CW.Common;
 
 namespace Lean.Touch
 {
-	/// <summary>If you add this component to your scene, then it will convert all mouse and touch data into easy to use data.
-	/// You can access this data via Lean.Touch.LeanTouch.Instance.Fingers, or hook into the Lean.Touch.LeanTouch.On___ events.
-	/// NOTE: If you experience a one frame input delay you should edit your ScriptExecutionOrder to force this script to update before your other scripts.</summary>
+	//このコンポーネントをシーンに追加すると、すべてのマウスとタッチのデータが使いやすいデータに変換
+	//Lean.Touch.LeanTouch.Instance.Fingersを介してこのデータにアクセスするか、Lean.Touch.LeanTouch.On___イベントにフックすることができる
+	//注：1フレームの入力遅延が発生した場合は、ScriptExecutionOrderを編集して、このスクリプトを他のスクリプトの前に強制的に更新する必要がある
 	[ExecuteInEditMode]
 	[DefaultExecutionOrder(-100)]
 	[DisallowMultipleComponent]
@@ -39,47 +38,49 @@ namespace Lean.Touch
 
 		private const float DEFAULT_RECORD_LIMIT = 10.0f;
 
-		/// <summary>This contains all the active and enabled LeanTouch instances</summary>
+		//全てのアクティブで有効なLeanTouchインスタンスが含まれまれる
 		public static List<LeanTouch> Instances = new List<LeanTouch>();
 
-		/// <summary>This list contains all fingers currently touching the screen (or have just stopped touching the screen).
-		/// NOTE: This list includes simulated fingers, as well as the mouse hover finger.</summary>
+		//このリストには、現在画面に触れている（または画面に触れなくなったばかりの）すべての指が含まれている
+		//注：このリストには、シミュレートされた指と、マウスのホバー指が含まれている
 		public static List<LeanFinger> Fingers = new List<LeanFinger>(10);
 
-		/// <summary>This list contains all fingers that were once touching the screen. This is used to manage finger tapping, as well as 'inactive' fingers that are so old they're no longer eligible for tapping.</summary>
+		//このリストには、かつて画面に触れていたすべての指が含まれている これは、指でのタッピングや
+		//古くてタッピングの対象ではなくなった「非アクティブ」な指を管理するために使用される
 		public static List<LeanFinger> InactiveFingers = new List<LeanFinger>(10);
 
-		/// <summary>This gets fired when a finger begins touching the screen (LeanFinger = The current finger)</summary>
+		//これは、指が画面に触れ始めると発生する（LeanFinger =現在の指）
 		public static event System.Action<LeanFinger> OnFingerDown;
 
-		/// <summary>This gets fired every frame a finger is touching the screen (LeanFinger = The current finger)</summary>
+		//これは、指が画面に触れているフレームごとに発生する（LeanFinger = 現在の指）
 		public static event System.Action<LeanFinger> OnFingerUpdate;
 
-		/// <summary>This gets fired when a finger stops touching the screen (LeanFinger = The current finger)</summary>
+		//これは、指が画面に触れなくなると発生する（LeanFinger = 現在の指）
 		public static event System.Action<LeanFinger> OnFingerUp;
 
-		/// <summary>This gets fired when a finger has been touching the screen for longer than <b>TapThreshold</b> seconds, causing it to be ineligible for the tap and swipe events.</summary>
+		//これは、指が<b> TapThreshold </ b>秒より長く画面に触れている場合に発生し、タップおよびスワイプイベントの対象外になる
 		public static event System.Action<LeanFinger> OnFingerOld;
 
-		/// <summary>This gets fired when a finger taps the screen (this is when a finger begins and stops touching the screen within the 'TapThreshold' time).</summary>
+		//これは、指が画面をタップしたときに発生する（これは、指が「TapThreshold」時間内に画面へのタッチを開始および停止したときです）
 		public static event System.Action<LeanFinger> OnFingerTap;
 
-		/// <summary>This gets fired when a finger swipes the screen (this is when a finger begins and stops touching the screen within the 'TapThreshold' time, and also moves more than the 'SwipeThreshold' distance) (LeanFinger = The current finger)</summary>
+		//これは、指が画面をスワイプしたときに発生します（これは、指が「TapThreshold」時間内に画面へのタッチを開始および停止し
+		//「SwipeThreshold」距離を超えて移動した場合です）（LeanFinger=現在の指)
 		public static event System.Action<LeanFinger> OnFingerSwipe;
 
-		/// <summary>This gets fired every frame at least one finger is touching the screen (List = Fingers).</summary>
+		//これは、少なくとも1本の指が画面に触れているフレームごとに発生する（リスト=指）
 		public static event System.Action<List<LeanFinger>> OnGesture;
 
-		/// <summary>This gets fired after a finger has been touching the screen for longer than <b>TapThreshold</b> seconds, making it ineligible for a swipe.</summary>
+		//これは、指が<b> TapThreshold </ b>秒より長く画面に触れた後に発生し、スワイプの対象外になります
 		public static event System.Action<LeanFinger> OnFingerExpired;
 
-		/// <summary>This gets fired the frame after a finger went up, </summary>
+		//これは、指が上がった後にフレームが発射されます
 		public static event System.Action<LeanFinger> OnFingerInactive;
 
-		/// <summary>This will be invoked when it's time to simulate fingers. You can call the <b>AddFinger</b> method to simulate them.</summary>
+		//これは、指をシミュレートするときに呼び出される<b> AddFinger</b>メソッドを呼び出してそれらをシミュレートできる
 		public event System.Action OnSimulateFingers;
 
-		/// <summary>This allows you to set how many seconds are required between a finger down/up for a tap to be registered.</summary>
+		//これにより、タップを登録するために指を上下に動かすまでに必要な秒数を設定できる
 		public float TapThreshold { set { tapThreshold = value; } get { return tapThreshold; } } [SerializeField] private float tapThreshold = DEFAULT_TAP_THRESHOLD;
 
 		public static float CurrentTapThreshold
@@ -90,7 +91,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This allows you to set how many pixels of movement (relative to the ReferenceDpi) are required within the TapThreshold for a swipe to be triggered.</summary>
+		//これにより、スワイプがトリガーされるためにTapThreshold内で必要な移動のピクセル数（ReferenceDpiに対して）を設定できる
 		public float SwipeThreshold { set { swipeThreshold = value; } get { return swipeThreshold; } } [SerializeField] private float swipeThreshold = DEFAULT_SWIPE_THRESHOLD;
 
 
@@ -117,7 +118,8 @@ namespace Lean.Touch
 		}
 #endif
 
-		/// <summary>This allows you to set the default DPI you want the input scaling to be based on. For example, if you set this to 200 and your display has a DPI of 400, then the <b>ScaledDelta</b> finger value will be half the distance of the pixel space <b>ScreenDelta</b> value.</summary>
+		//これにより、入力スケーリングの基にするデフォルトのDPIを設定できる。たとえば、これを200に設定し、ディスプレイのDPIが400の場合
+		//<b> ScaledDelta</b>の指の値はピクセルスペースの<b>ScreenDelta</b>値の半分の距離になる
 		public int ReferenceDpi { set { referenceDpi = value; } get { return referenceDpi; } } [SerializeField] private int referenceDpi = DEFAULT_REFERENCE_DPI;
 
 		public static int CurrentReferenceDpi
@@ -128,7 +130,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This allows you to set which layers your GUI is on, so it can be ignored by each finger.</summary>
+		//これにより、GUIを配置するレイヤーを設定できるため、各指で無視できる
 		public LayerMask GuiLayers { set { guiLayers = value; } get { return guiLayers; } } [SerializeField] private LayerMask guiLayers = (LayerMask)DEFAULT_GUI_LAYERS;
 
 		public static LayerMask CurrentGuiLayers
@@ -139,45 +141,46 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>If you disable this then lean touch will act as if you stopped touching the screen.</summary>
+		//これを無効にすると、リーンタッチは画面へのタッチを停止したかのように機能する
 		public bool UseTouch { set { useTouch = value; } get { return useTouch; } } [SerializeField] private bool useTouch = true;
 
-		/// <summary>Should the mouse hover position be stored as a finger?
-		/// NOTE: It will be given a finger <b>Index</b> of HOVER_FINGER_INDEX = -42.</summary>
+		//マウスのホバー位置を指として保存する必要がありますか？
+		//注：HOVER_FINGER_INDEX=-42の指<b>インデックス</b>が与えられる
 		public bool UseHover { set { useHover = value; } get { return useHover; } } [SerializeField] private bool useHover = true;
 
-		/// <summary>Should any mouse button press be stored as a finger?
-		/// NOTE: It will be given a finger <b>Index</b> of MOUSE_FINGER_INDEX = -1.</summary>
+		//マウスボタンの押下を指として保存する必要がありますか？
+		///注：MOUSE_FINGER_INDEX=-1の指<b>インデックス</b>が与えられる
 		public bool UseMouse { set { useMouse = value; } get { return useMouse; } } [SerializeField] private bool useMouse = true;
 
-		/// <summary>Should components hooked into the <b>OnSimulateFingers</b> event be used? (e.g. LeanTouchSimulator)</summary>
+		//<b> OnSimulateFingers </ b>イベントにフックされたコンポーネントを使用する必要がありますか？ （例：LeanTouchSimulator）
 		public bool UseSimulator { set { useSimulator = value; } get { return useSimulator; } } [SerializeField] private bool useSimulator = true;
 
-		/// <summary>When using the old/legacy input system, by default it will convert touch data into mouse data, even if there is no mouse. Enabling this setting will disable this behavior.</summary>
+		//古い/レガシー入力システムを使用する場合、デフォルトでは、マウスがない場合でも、タッチデータがマウスデータに変換される
+		//この設定を有効にすると、この動作が無効になりる
 		public bool DisableMouseEmulation { set { disableMouseEmulation = value; UpdateMouseEmulation(); } get { return disableMouseEmulation; } } [SerializeField] private bool disableMouseEmulation = true;
 
-		/// <summary>Should each finger record snapshots of their screen positions?</summary>
+		//各指は画面位置のスナップショットを記録する必要がありますか？
 		public bool RecordFingers { set { recordFingers = value; } get { return recordFingers; } } [SerializeField] private bool recordFingers = true;
 
-		/// <summary>This allows you to set the amount of pixels a finger must move for another snapshot to be stored.</summary>
+		//これにより、別のスナップショットを保存するために指が移動する必要のあるピクセル数を設定できる
 		public float RecordThreshold { set { recordThreshold = value; } get { return recordThreshold; } } [SerializeField] private float recordThreshold = 5.0f;
 
-		/// <summary>This allows you to set the maximum amount of seconds that can be recorded, 0 = unlimited.</summary>
+		//これにより、記録できる最大秒数を設定できます。0 = 無制限
 		public float RecordLimit { set { recordLimit = value; } get { return recordLimit; } } [SerializeField] private float recordLimit = DEFAULT_RECORD_LIMIT;
 
-		// Used to find if the GUI is in use
+		//GUIが使用されているかどうかを確認するために使用されます
 		private static List<RaycastResult> tempRaycastResults = new List<RaycastResult>(10);
 
-		// Used to return non GUI fingers
+		//GUI以外の指を返すために使用されます
 		private static List<LeanFinger> filteredFingers = new List<LeanFinger>(10);
 
-		// Used by RaycastGui
+		//RaycastGuiによって使用されます
 		private static PointerEventData tempPointerEventData;
 
-		// Used by RaycastGui
+		//RaycastGuiによって使用されます
 		private static EventSystem tempEventSystem;
 
-		/// <summary>The first active and enabled LeanTouch instance.</summary>
+		//最初のアクティブで有効なLeanTouchインスタンス
 		public static LeanTouch Instance
 		{
 			get
@@ -186,56 +189,56 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>If you multiply this value with any other pixel delta (e.g. ScreenDelta), then it will become device resolution independent relative to the device DPI.</summary>
+		//この値に他のピクセルデルタ（ScreenDeltaなど）を掛けると、デバイスのDPIに対してデバイスの解像度に依存しなくなります。
 		public static float ScalingFactor
 		{
 			get
 			{
-				// Get the current screen DPI
+				//現在の画面のDPIを取得します
 				var dpi = Screen.dpi;
 
-				// If it's 0 or less, it's invalid, so return the default scale of 1.0
+				// 0以下の場合は無効なので、デフォルトのスケール1.0を返します
 				if (dpi <= 0)
 				{
 					return 1.0f;
 				}
 
-				// DPI seems valid, so scale it against the reference DPI
+				// DPIは有効と思われるため、参照DPIに対してスケーリングします
 				return CurrentReferenceDpi / dpi;
 			}
 		}
 
-		/// <summary>If you multiply this value with any other pixel delta (e.g. ScreenDelta), then it will become device resolution independent relative to the screen pixel size.</summary>
+		//この値に他のピクセルデルタ（ScreenDeltaなど）を掛けると、画面のピクセルサイズに対してデバイスの解像度に依存しなくなる
 		public static float ScreenFactor
 		{
 			get
 			{
-				// Get shortest size
+				//最短サイズを取得
 				var size = Mathf.Min(Screen.width, Screen.height);
 
-				// If it's 0 or less, it's invalid, so return the default scale of 1.0
+				// 0以下の場合は無効なので、デフォルトのスケール1.0を返す
 				if (size <= 0)
 				{
 					return 1.0f;
 				}
 
-				// Return reciprocal for easy multiplication
+				//乗算を簡単にするために逆数を返す
 				return 1.0f / size;
 			}
 		}
 
-		/// <summary>This will return true if the mouse or any finger is currently using the GUI.</summary>
+		//これは、マウスまたは任意の指が現在GUIを使用している場合にtrueを返す
 		public static bool GuiInUse
 		{
 			get
 			{
-				// Legacy GUI in use?
+				//レガシーGUIを使用していますか？
 				if (GUIUtility.hotControl > 0)
 				{
 					return true;
 				}
 
-				// New GUI in use?
+				//新しいGUIを使用していますか？
 				foreach (var finger in Fingers)
 				{
 					if (finger.StartedOverGui == true)
@@ -275,21 +278,21 @@ namespace Lean.Touch
 			return currentEventSystem;
 		}
 
-		/// <summary>This will return true if the specified screen point is over any GUI elements.</summary>
+		//これは、指定された画面ポイントがGUI要素の上にある場合にtrueを返す
 		public static bool PointOverGui(Vector2 screenPosition)
 		{
 			return RaycastGui(screenPosition).Count > 0;
 		}
 
-		/// <summary>This will return all the RaycastResults under the specified screen point using the current layerMask.
-		/// NOTE: The first result (0) will be the top UI element that was first hit.</summary>
+		//これにより、現在のlayerMaskを使用して、指定された画面ポイントの下にあるすべてのRaycastResultsが返される
+		//：最初の結果（0）は、最初にヒットした最上位のUI要素になる
 		public static List<RaycastResult> RaycastGui(Vector2 screenPosition)
 		{
 			return RaycastGui(screenPosition, CurrentGuiLayers);
 		}
 
-		/// <summary>This will return all the RaycastResults under the specified screen point using the specified layerMask.
-		/// NOTE: The first result (0) will be the top UI element that was first hit.</summary>
+		//これにより、指定されたlayerMaskを使用して、指定された画面ポイントの下にあるすべてのRaycastResultsが返される
+		//注：最初の結果（0）は、最初にヒットした最上位のUI要素になる
 		public static List<RaycastResult> RaycastGui(Vector2 screenPosition, LayerMask layerMask)
 		{
 			tempRaycastResults.Clear();
@@ -298,7 +301,7 @@ namespace Lean.Touch
 
 			if (currentEventSystem != null)
 			{
-				// Create point event data for this event system?
+				//このイベントシステムのポイントイベントデータを作成しますか？
 				if (currentEventSystem != tempEventSystem)
 				{
 					tempEventSystem = currentEventSystem;
@@ -313,12 +316,12 @@ namespace Lean.Touch
 					}
 				}
 
-				// Raycast event system at the specified point
+				//指定されたポイントでのレイキャストイベントシステム
 				tempPointerEventData.position = screenPosition;
 
 				currentEventSystem.RaycastAll(tempPointerEventData, tempRaycastResults);
 
-				// Loop through all results and remove any that don't match the layer mask
+				//すべての結果をループし、レイヤーマスクと一致しないものを削除する
 				if (tempRaycastResults.Count > 0)
 				{
 					for (var i = tempRaycastResults.Count - 1; i >= 0; i--)
@@ -341,10 +344,10 @@ namespace Lean.Touch
 			return tempRaycastResults;
 		}
 
-		/// <summary>This allows you to filter all the fingers based on the specified requirements.
-		/// NOTE: If ignoreGuiFingers is set, Fingers will be filtered to remove any with StartedOverGui.
-		/// NOTE: If requiredFingerCount is greater than 0, this method will return null if the finger count doesn't match.
-		/// NOTE: If requiredSelectable is set, and its SelectingFinger isn't null, it will return just that finger.</summary>
+		//これにより、指定した要件に基づいてすべての指をフィルタリングできる
+		///注：ignoreGuiFingersが設定されている場合、Fingersはフィルターされ、StartedOverGuiで削除されます。
+		///注：requiredFingerCountが0より大きい場合、指数が一致しない場合、このメソッドはnullを返します。
+		///注：requiredSelectableが設定されていて、そのSelectingFingerがnullでない場合は、その指だけが返されます
 		public static List<LeanFinger> GetFingers(bool ignoreIfStartedOverGui, bool ignoreIfOverGui, int requiredFingerCount = 0, bool ignoreHoverFinger = true)
 		{
 			filteredFingers.Clear();
@@ -386,7 +389,7 @@ namespace Lean.Touch
 
 		private static LeanFinger simulatedTapFinger = new LeanFinger();
 
-		/// <summary>This allows you to simulate a tap on the screen at the specified location.</summary>
+		//これにより、指定した場所で画面をタップすることをシミュレートできる
 		public static void SimulateTap(Vector2 screenPosition, float pressure = 1.0f, int tapCount = 1)
 		{
 			if (OnFingerTap != null)
@@ -413,14 +416,15 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>You can call this method if you want to stop all finger events. You can then disable this component to prevent new ones from updating.</summary>
+		//すべてのfingerイベントを停止する場合は、このメソッドを呼び出すことができる
+		//次に、このコンポーネントを無効にして、新しいコンポーネントが更新されないようにすることができる
 		public void Clear()
 		{
 			UpdateFingers(0.001f, false);
 			UpdateFingers(1.0f, false);
 		}
 
-		/// <summary>This will update Unity based on the current <b>DisableMouseEmulation</b> setting.</summary>
+		//これにより、現在の<b> DisableMouseEmulation</b>設定に基づいてUnityが更新される
 		public void UpdateMouseEmulation()
 		{
 			if (disableMouseEmulation == true)
@@ -454,7 +458,8 @@ namespace Lean.Touch
 			}
 #endif
 
-			// Only run the update methods if this is the first instance (i.e. if your scene has more than one LeanTouch component, only use the first)
+			//これが最初のインスタンスである場合にのみ、更新メソッドを実行する
+			//（つまり、シーンに複数のLeanTouchコンポーネントがある場合は、最初のコンポーネントのみを使用します）
 			if (Instances[0] == this)
 			{
 				UpdateFingers(Time.unscaledDeltaTime, true);
@@ -463,33 +468,33 @@ namespace Lean.Touch
 
 		private void UpdateFingers(float deltaTime, bool poll)
 		{
-			// Prepare old finger data for new information
+			//新しい情報のために古い指のデータを準備します
 			BeginFingers(deltaTime);
 
-			// Poll current touch + mouse data and convert it to fingers
+			//現在のタッチ+マウスデータをポーリングし、それを指に変換します
 			if (poll == true)
 			{
 				PollFingers();
 			}
 
-			// Process any no longer used fingers
+			//使用されなくなった指を処理します
 			EndFingers(deltaTime);
 
-			// Update events based on new finger data
+			//新しい指のデータに基づいてイベントを更新します
 			UpdateEvents();
 		}
 
-		// Update all Fingers and InactiveFingers so they're ready for the new frame
+		//すべてのFingersとInactiveFingersを更新して、新しいフレームの準備をします
 		private void BeginFingers(float deltaTime)
 		{
-			// Age inactive fingers
+			//非アクティブな指の年齢
 			for (var i = InactiveFingers.Count - 1; i >= 0; i--)
 			{
 				var inactiveFinger = InactiveFingers[i];
 
 				inactiveFinger.Age += deltaTime;
 
-				// Just expired?
+				//期限切れですか？
 				if (inactiveFinger.Expired == false && inactiveFinger.Age > tapThreshold)
 				{
 					inactiveFinger.Expired = true;
@@ -498,21 +503,21 @@ namespace Lean.Touch
 				}
 			}
 
-			// Reset finger data
+			//フィンガーデータをリセットする
 			for (var i = Fingers.Count - 1; i >= 0; i--)
 			{
 				var finger = Fingers[i];
 
-				// Was this set to up last time? If so, it's now inactive
+				//これは前回設定されましたか？ もしそうなら、それは現在非アクティブです
 				if (finger.Up == true || finger.Set == false)
 				{
-					// Make finger inactive
+					//指を非アクティブにします
 					Fingers.RemoveAt(i); InactiveFingers.Add(finger);
 
-					// Reset age so we can time how long it's been inactive
+					//年齢をリセットして、非アクティブになっている時間を計測できるようにします
 					finger.Age = 0.0f;
 
-					// Pool old snapshots
+					//古いスナップショットをプールします
 					finger.ClearSnapshots();
 
 					if (OnFingerInactive != null) OnFingerInactive(finger);
@@ -529,7 +534,7 @@ namespace Lean.Touch
 				}
 			}
 
-			// Store all active fingers (these are later removed in AddFinger)
+			//すべてのアクティブな指を保存します（これらは後でAddFingerで削除される）
 			missingFingers.Clear();
 
 			foreach (var finger in Fingers)
@@ -538,10 +543,10 @@ namespace Lean.Touch
 			}
 		}
 
-		// Update all Fingers based on the new finger data
+		//新しい指のデータに基づいてすべての指を更新します
 		private void EndFingers(float deltaTime)
 		{
-			// Force missing fingers to go up (there normally shouldn't be any)
+			//行方不明の指を強制的に上に上げます（通常は指がないはずです）
 			tempFingers.Clear();
 
 			tempFingers.AddRange(missingFingers);
@@ -551,7 +556,7 @@ namespace Lean.Touch
 				AddFinger(finger.Index, finger.ScreenPosition, finger.Pressure, false);
 			}
 
-			// Update fingers
+			//指を更新する
 			foreach (var finger in Fingers)
 			{
 				// Up?
@@ -593,15 +598,15 @@ namespace Lean.Touch
 			}
 		}
 
-		// This allows us to track if Unity incorrectly removes fingers without first indicating they went up
+		//これにより、Unityが指が上がったことを最初に示さずに、指が誤って削除されたかどうかを追跡できます
 		private static HashSet<LeanFinger> missingFingers = new HashSet<LeanFinger>();
 
 		private static List<LeanFinger> tempFingers = new List<LeanFinger>();
 
-		// Read new hardware finger data
+		//新しいハードウェアフィンガーデータを読み取ります
 		private void PollFingers()
 		{
-			// Submit real fingers?
+			//本物の指を提出しますか？
 			if (useTouch == true && CwInput.GetTouchCount() > 0)
 			{
 				for (var i = 0; i < CwInput.GetTouchCount(); i++)
@@ -614,7 +619,7 @@ namespace Lean.Touch
 				}
 			}
 
-			// Submit mouse hover as finger?
+			//マウスホバーを指として送信しますか？
 			if (useHover == true && CwInput.GetMouseExists() == true)
 			{
 				var mousePosition = CwInput.GetMousePosition();
@@ -624,7 +629,7 @@ namespace Lean.Touch
 				hoverFinger.LastSet        = true;
 			}
 
-			// Submit mouse buttons as finger?
+			//マウスボタンを指として送信しますか？
 			if (useMouse == true && CwInput.GetMouseExists() == true)
 			{
 				var mouseSet = false;
@@ -640,15 +645,15 @@ namespace Lean.Touch
 				{
 					var mousePosition = CwInput.GetMousePosition();
 
-					// Is the mouse within the screen?
-					//if (new Rect(0, 0, Screen.width, Screen.height).Contains(mousePosition) == true)
+					//マウスは画面内にありますか？
+					// if（new Rect（0、0、Screen.width、Screen.height）.Contains（mousePosition）== true）
 					{
 						AddFinger(MOUSE_FINGER_INDEX, mousePosition, 1.0f, mouseSet);
 					}
 				}
 			}
 
-			// Simulate other fingers?
+			//他の指をシミュレートしますか？
 			if (useSimulator == true)
 			{
 				if (OnSimulateFingers != null) OnSimulateFingers.Invoke();
@@ -682,20 +687,20 @@ namespace Lean.Touch
 			}
 		}
 
-		// Add a finger based on index, or return the existing one
+		//インデックスに基づいて指を追加するか、既存の指を返します
 		public LeanFinger AddFinger(int index, Vector2 screenPosition, float pressure, bool set)
 		{
 			var finger = FindFinger(index);
 
-			// Finger is already active, so remove it from the missing collection
+			// Fingerはすでにアクティブになっているため、不足しているコレクションから削除します
 			if (finger != null)
 			{
 				missingFingers.Remove(finger);
 			}
-			// No finger found? Find or create it
+			//指が見つかりませんか？ それを見つけるか作成する
 			else
 			{
-				// If a finger goes up but hasn't been registered yet then it will mess up the event flow, so skip it (this shouldn't normally occur).
+				//指が上がったがまだ登録されていない場合は、イベントフローが混乱するため、スキップします（通常は発生しないはずです）。
 				if (set == false)
 				{
 					return null;
@@ -703,18 +708,18 @@ namespace Lean.Touch
 
 				var inactiveIndex = FindInactiveFingerIndex(index);
 
-				// Use inactive finger?
+				//非アクティブな指を使用しますか？
 				if (inactiveIndex >= 0)
 				{
 					finger = InactiveFingers[inactiveIndex]; InactiveFingers.RemoveAt(inactiveIndex);
 
-					// Inactive for too long?
+					//非アクティブが長すぎますか？
 					if (finger.Age > tapThreshold)
 					{
 						finger.TapCount = 0;
 					}
 
-					// Reset values
+					//値をリセット
 					finger.Age     = 0.0f;
 					finger.Old     = false;
 					finger.Set     = false;
@@ -730,7 +735,7 @@ namespace Lean.Touch
 					finger = ReclaimFinger(index, screenPosition);
 #endif
 
-					// Create new finger?
+					//新しい指を作成しますか？
 					if (finger == null)
 					{
 						finger = new LeanFinger();
@@ -751,10 +756,10 @@ namespace Lean.Touch
 			finger.ScreenPosition = screenPosition;
 			finger.Pressure       = pressure;
 
-			// Record?
+			// 記録？
 			if (recordFingers == true)
 			{
-				// Too many snapshots?
+				//スナップショットが多すぎますか？
 				if (recordLimit > 0.0f)
 				{
 					if (finger.SnapshotDuration > recordLimit)
@@ -764,7 +769,7 @@ namespace Lean.Touch
 						finger.ClearSnapshots(removeCount);
 					}
 				}
-				// Make sure the hover finger doesn't record forever
+				//ホバーフィンガーが永久に記録されないようにします
 				else if (finger.Index == HOVER_FINGER_INDEX)
 				{
 					if (finger.SnapshotDuration > DEFAULT_RECORD_LIMIT)
@@ -775,7 +780,7 @@ namespace Lean.Touch
 					}
 				}
 
-				// Record snapshot?
+				//スナップショットを記録しますか？
 				if (recordThreshold > 0.0f)
 				{
 					if (finger.Snapshots.Count == 0 || finger.LastSnapshotScreenDelta.magnitude >= recordThreshold)
@@ -792,7 +797,7 @@ namespace Lean.Touch
 			return finger;
 		}
 
-		// Find the finger with the specified index, or return null
+		//指定されたインデックスを持つ指を見つけるか、nullを返します
 		private LeanFinger FindFinger(int index)
 		{
 			foreach (var finger in Fingers)
@@ -830,7 +835,7 @@ namespace Lean.Touch
 		}
 #endif
 
-		/// Find the index of the inactive finger with the specified index, or return -1
+		//指定されたインデックスを持つ非アクティブな指のインデックスを検索するか、-1を返します
 		private int FindInactiveFingerIndex(int index)
 		{
 			for (var i = InactiveFingers.Count - 1; i>= 0; i--)
@@ -875,7 +880,7 @@ namespace Lean.Touch.Editor
 			Selection.activeGameObject = gameObject;
 		}
 
-		// Draw the whole inspector
+		//インスペクター全体を描画します
 		protected override void OnInspector()
 		{
 			GetTargets(out tgt, out tgts);

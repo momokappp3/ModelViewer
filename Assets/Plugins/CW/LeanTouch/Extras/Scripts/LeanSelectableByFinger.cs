@@ -111,7 +111,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>If requiredSelectable is set and not selected, the fingers list will be empty. If selected then the fingers list will only contain the selecting finger.</summary>
+		//requiredSelectableが設定されていて選択されていない場合、フィンガーリストは空になります。 選択した場合、指リストには選択した指のみが含まれる
 		public static List<LeanFinger> GetFingers(bool ignoreIfStartedOverGui, bool ignoreIfOverGui, int requiredFingerCount = 0, LeanSelectable requiredSelectable = null)
 		{
 			var fingers = LeanTouch.GetFingers(ignoreIfStartedOverGui, ignoreIfOverGui, requiredFingerCount);
