@@ -3,12 +3,14 @@ using CW.Common;
 
 namespace Lean.Touch
 {
-	/// <summary>This component allows you to scale the current GameObject relative to the specified camera using the pinch gesture.</summary>
+	//このコンポーネントを使用すると、ピンチジェスチャを使用して
+	//指定したカメラを基準にして現在のGameObjectをスケーリングできる
 	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanPinchScale")]
 	[AddComponentMenu(LeanTouch.ComponentPathPrefix + "Pinch Scale")]
 	public class LeanPinchScale : MonoBehaviour
 	{
-		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
+		//このコンポーネントで使用する指を見つけるために使用されるメソッド
+		//詳細については、LeanFingerFilterのドキュメントを参照
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
 		/// <summary>The camera that will be used to calculate the zoom.

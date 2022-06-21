@@ -194,16 +194,16 @@ namespace Lean.Touch
 		{
 			get
 			{
-				//現在の画面のDPIを取得します
+				//現在の画面のDPIを取得
 				var dpi = Screen.dpi;
 
-				// 0以下の場合は無効なので、デフォルトのスケール1.0を返します
+				// 0以下の場合は無効なので、デフォルトのスケール1.0を返す
 				if (dpi <= 0)
 				{
 					return 1.0f;
 				}
 
-				// DPIは有効と思われるため、参照DPIに対してスケーリングします
+				// DPIは有効と思われるため、参照DPIに対してスケーリングする
 				return CurrentReferenceDpi / dpi;
 			}
 		}
