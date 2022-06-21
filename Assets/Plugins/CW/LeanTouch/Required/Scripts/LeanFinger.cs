@@ -5,59 +5,59 @@ using CW.Common;
 
 namespace Lean.Touch
 {
-	/// <summary>This class stores information about a single touch (or simulated touch).</summary>
+	//このクラスは、シングルタッチ（またはシミュレートされたタッチ）に関する情報を格納する
 	public class LeanFinger
 	{
-		/// <summary>This is the hardware ID of the finger.
-		/// NOTE: Simulated fingers will use hardware ID -1 and -2.</summary>
+		//これは指のハードウェアIDです。
+		//注：シミュレートされた指はハードウェアID-1および-2を使用する
 		public int Index;
 
-		/// <summary>This tells you how long this finger has been active (or inactive) in seconds.</summary>
+		//この指がアクティブ（または非アクティブ）であった時間を秒単位で示す
 		public float Age;
 
-		/// <summary>Is this finger currently touching the screen?</summary>
+		//この指は現在画面に触れているか
 		public bool Set;
 
-		/// <summary>This tells you the 'Set' value of the last frame.</summary>
+		//これは最後のフレームの「Set」値を示す
 		public bool LastSet;
 
-		/// <summary>Did this finger just tap the screen?</summary>
+		//この指は画面をタップしただけか
 		public bool Tap;
 
-		/// <summary>This tells you how many times this finger has been tapped.</summary>
+		//この指がタップされた回数を示す
 		public int TapCount;
 
-		/// <summary>Did this finger just swipe the screen?</summary>
+		//この指は画面をスワイプしただけか
 		public bool Swipe;
 
-		/// <summary>If this finger has been touching the screen for more than TapThreshold, this will be true.</summary>
+		//この指がTapThresholdを超えて画面に触れている場合
 		public bool Old;
 
-		/// <summary>If this finger has been inactive for more than TapThreshold, this will be true.</summary>
+		//この指がTapThresholdを超えて非アクティブになっている場合
 		public bool Expired;
 
-		/// <summary>This tells you the Pressure value last frame.</summary>
+		//最後のフレームの圧力値を示す
 		public float LastPressure;
 
-		/// <summary>This tells you the current pressure of this finger (NOTE: only some devices support this).</summary>
+		//この指の現在の圧力を示しす注：これをサポートしているのは一部のデバイスのみです）
 		public float Pressure;
 
-		/// <summary>This tells you the 'ScreenPosition' value of this finger when it began touching the screen.</summary>
+		//この指が画面に触れ始めたときの「ScreenPosition」値を示しす
 		public Vector2 StartScreenPosition;
 
-		/// <summary>This tells you the last screen position of the finger.</summary>
+		//これは指の最後の画面位置を示しす
 		public Vector2 LastScreenPosition;
 
-		/// <summary>This tells you the current screen position of the finger in pixels, where 0,0 = bottom left.</summary>
+		//指の現在の画面位置をピクセル単位で示す。ここで、0,0=左下です。
 		public Vector2 ScreenPosition;
 
-		/// <summary>This tells you if the current finger had 'IsOverGui' set to true when it began touching the screen.</summary>
+		//現在の指が画面に触れ始めたときに「IsOverGui」がtrueに設定されているかどうかを示す
 		public bool StartedOverGui;
 
-		/// <summary>Used to store position snapshots, enable RecordFingers in LeanTouch to use this.</summary>
+		//位置のスナップショットを保存するために使用され、LeanTouchのRecordFingersがこれを使用できるようにする
 		public List<LeanSnapshot> Snapshots = new List<LeanSnapshot>(1000);
 
-		/// <summary>This will return true if this finger is currently touching the screen.</summary>
+		//この指が現在画面に触れている場合、これはtrueを返す
 		public bool IsActive
 		{
 			get
@@ -66,7 +66,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This will tell you how many seconds of snapshot footage is stored for this finger.</summary>
+		//この指に保存されているスナップショット映像の秒数がわかる
 		public float SnapshotDuration
 		{
 			get
@@ -80,7 +80,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This will return true if the current finger is over any Unity GUI elements.</summary>
+		//現在の指がUnityGUI要素の上にある場合、これはtrueを返す
 		public bool IsOverGui
 		{
 			get
@@ -89,7 +89,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>Did this finger begin touching the screen this frame?</summary>
+		//この指はこのフレームの画面に触れ始めましたか？
 		public bool Down
 		{
 			get
@@ -98,7 +98,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>Did the finger stop touching the screen this frame?</summary>
+		//このフレームで指が画面に触れるのを止めたか
 		public bool Up
 		{
 			get
@@ -107,7 +107,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This will return how far in pixels the finger has moved since the last recorded snapshot.</summary>
+		//最後に記録されたスナップショットから指が移動した距離をピクセル単位で返す
 		public Vector2 LastSnapshotScreenDelta
 		{
 			get
@@ -128,7 +128,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This returns a resolution-independent 'LastSnapshotScreenDelta' value.</summary>
+		//解像度に依存しない'LastSnapshotScreenDelta'値を返す
 		public Vector2 LastSnapshotScaledDelta
 		{
 			get
@@ -137,7 +137,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This will return how far in pixels the finger has moved since the last frame.</summary>
+		//最後のフレームから指が移動した距離をピクセル単位で返す
 		public Vector2 ScreenDelta
 		{
 			get
@@ -146,7 +146,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This returns a resolution-independent 'ScreenDelta' value.</summary>
+		//解像度に依存しない'ScreenDelta'値を返す
 		public Vector2 ScaledDelta
 		{
 			get
@@ -155,7 +155,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This tells you how far this finger has moved since it began touching the screen.</summary>
+		//この指が画面に触れ始めてからどれだけ移動したかを示す
 		public Vector2 SwipeScreenDelta
 		{
 			get
@@ -164,7 +164,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This returns a resolution-independent 'SwipeScreenDelta' value.</summary>
+		//解像度に依存しない'SwipeScreenDelta'値を返す
 		public Vector2 SwipeScaledDelta
 		{
 			get
@@ -173,7 +173,7 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This returns a smooth point between the previous and current screen position based on a 0..1 progress value.</summary>
+		//0..1の進行値に基づいて、前の画面位置と現在の画面位置の間の滑らかなポイントを返す
 		public Vector2 GetSmoothScreenPosition(float t)
 		{
 			if (Snapshots.Count > 0 && Set == true)
@@ -189,7 +189,7 @@ namespace Lean.Touch
 			return Vector2.LerpUnclamped(LastScreenPosition, ScreenPosition, t);
 		}
 
-		/// <summary>This returns the screen space distance between the 0 and 1 smooth screen positions.</summary>
+		//0と1のスムーズな画面位置の間の画面スペース距離を返す
 		public float SmoothScreenPositionDelta
 		{
 			get
@@ -206,10 +206,10 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>This will return the ray of the finger's current position relative to the specified camera (none/null = Main Camera).</summary>
+		//指定されたカメラ（none / null =メインカメラ）に対する指の現在の位置の光線を返す
 		public Ray GetRay(Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -224,10 +224,10 @@ namespace Lean.Touch
 			return default(Ray);
 		}
 
-		/// <summary>This will return the ray of the finger's start position relative to the specified camera (none/null = Main Camera).</summary>
+		//指定されたカメラ（none / null =メインカメラ）を基準にした指の開始位置の光線を返す
 		public Ray GetStartRay(Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -242,19 +242,19 @@ namespace Lean.Touch
 			return default(Ray);
 		}
 
-		/// <summary>This will tell you how far the finger has moved in the past 'deltaTime' seconds.</summary>
+		//過去の「deltaTime」秒で指がどれだけ移動したか
 		public Vector2 GetSnapshotScreenDelta(float deltaTime)
 		{
 			return ScreenPosition - GetSnapshotScreenPosition(Age - deltaTime);
 		}
 
-		/// <summary>This returns a resolution-independent 'GetSnapshotScreenDelta' value.</summary>
+		//解像度に依存しない'GetSnapshotScreenDelta'値を返す
 		public Vector2 GetSnapshotScaledDelta(float deltaTime)
 		{
 			return GetSnapshotScreenDelta(deltaTime) * LeanTouch.ScalingFactor;
 		}
 
-		/// <summary>This will return the recorded position of the current finger when it was at 'targetAge'.</summary>
+		//現在の指が「targetAge」にあったときの記録された位置が返される
 		public Vector2 GetSnapshotScreenPosition(float targetAge)
 		{
 			var screenPosition = ScreenPosition;
@@ -264,10 +264,10 @@ namespace Lean.Touch
 			return screenPosition;
 		}
 
-		/// <summary>This will return the recorded world of the current finger when it was at 'targetAge'.</summary>
+		//現在の指が「targetAge」にあったときに記録された世界が返される
 		public Vector3 GetSnapshotWorldPosition(float targetAge, float distance, Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -285,37 +285,37 @@ namespace Lean.Touch
 			return default(Vector3);
 		}
 
-		/// <summary>This will return the angle between the finger and the reference point, relative to the screen.</summary>
+		//画面を基準にした指と参照点の間の角度が返される
 		public float GetRadians(Vector2 referencePoint)
 		{
 			return Mathf.Atan2(ScreenPosition.x - referencePoint.x, ScreenPosition.y - referencePoint.y);
 		}
 
-		/// <summary>This will return the angle between the finger and the reference point, relative to the screen.</summary>
+		//画面を基準にした指と参照点の間の角度が返される
 		public float GetDegrees(Vector2 referencePoint)
 		{
 			return GetRadians(referencePoint) * Mathf.Rad2Deg;
 		}
 
-		/// <summary>This will return the angle between the last finger position and the reference point, relative to the screen.</summary>
+		//画面を基準にした、最後の指の位置と参照点の間の角度が返される
 		public float GetLastRadians(Vector2 referencePoint)
 		{
 			return Mathf.Atan2(LastScreenPosition.x - referencePoint.x, LastScreenPosition.y - referencePoint.y);
 		}
 
-		/// <summary>This will return the angle between the last finger position and the reference point, relative to the screen.</summary>
+		//画面を基準にした、最後の指の位置と参照点の間の角度が返される
 		public float GetLastDegrees(Vector2 referencePoint)
 		{
 			return GetLastRadians(referencePoint) * Mathf.Rad2Deg;
 		}
 
-		/// <summary>This will return the delta angle between the last and current finger position relative to the reference point.</summary>
+		//基準点を基準にした最後の指の位置と現在の指の位置の間のデルタ角度が返される
 		public float GetDeltaRadians(Vector2 referencePoint)
 		{
 			return GetDeltaRadians(referencePoint, referencePoint);
 		}
 
-		/// <summary>This will return the delta angle between the last and current finger position relative to the reference point and the last reference point.</summary>
+		//基準点と最後の基準点を基準にした最後の指の位置と現在の指の位置の間のデルタ角度が返される
 		public float GetDeltaRadians(Vector2 referencePoint, Vector2 lastReferencePoint)
 		{
 			var a = GetLastRadians(lastReferencePoint);
@@ -330,58 +330,58 @@ namespace Lean.Touch
 			return d;
 		}
 
-		/// <summary>This will return the delta angle between the last and current finger position relative to the reference point.</summary>
+		//基準点を基準にした最後の指の位置と現在の指の位置の間のデルタ角度が返される
 		public float GetDeltaDegrees(Vector2 referencePoint)
 		{
 			return GetDeltaRadians(referencePoint, referencePoint) * Mathf.Rad2Deg;
 		}
 
-		/// <summary>This will return the delta angle between the last and current finger position relative to the reference point and the last reference point.</summary>
+		//基準点と最後の基準点を基準にした最後の指の位置と現在の指の位置の間のデルタ角度が返される
 		public float GetDeltaDegrees(Vector2 referencePoint, Vector2 lastReferencePoint)
 		{
 			return GetDeltaRadians(referencePoint, lastReferencePoint) * Mathf.Rad2Deg;
 		}
 
-		/// <summary>This will return the distance between the finger and the reference point.</summary>
+		//指と参照点の間の距離が返される
 		public float GetScreenDistance(Vector2 point)
 		{
 			return Vector2.Distance(ScreenPosition, point);
 		}
 
-		/// <summary>This returns a resolution-independent 'GetScreenDistance' value.</summary>
+		//これは解像度に依存しない'GetScreenDistance'値を返す
 		public float GetScaledDistance(Vector2 point)
 		{
 			return GetScreenDistance(point) * LeanTouch.ScalingFactor;
 		}
 
-		/// <summary>This will return the distance between the last finger and the reference point.</summary>
+		//小指と参照点の間の距離を返す
 		public float GetLastScreenDistance(Vector2 point)
 		{
 			return Vector2.Distance(LastScreenPosition, point);
 		}
 
-		/// <summary>This returns a resolution-independent 'GetLastScreenDistance' value.</summary>
+		//解像度に依存しない'GetLastScreenDistance'値を返す
 		public float GetLastScaledDistance(Vector2 point)
 		{
 			return GetLastScreenDistance(point) * LeanTouch.ScalingFactor;
 		}
 
-		/// <summary>This will return the distance between the start finger and the reference point.</summary>
+		//開始指と参照点の間の距離を返す
 		public float GetStartScreenDistance(Vector2 point)
 		{
 			return Vector2.Distance(StartScreenPosition, point);
 		}
 
-		/// <summary>This returns a resolution-independent 'GetStartScreenDistance' value.</summary>
+		//解像度に依存しない'GetStartScreenDistance'値を返す
 		public float GetStartScaledDistance(Vector2 point)
 		{
 			return GetStartScreenDistance(point) * LeanTouch.ScalingFactor;
 		}
 
-		/// <summary>This will return the start world position of this finger based on the distance from the camera.</summary>
+		//カメラからの距離に基づいて、この指の開始ワールド位置を返す
 		public Vector3 GetStartWorldPosition(float distance, Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -398,10 +398,10 @@ namespace Lean.Touch
 			return default(Vector3);
 		}
 
-		/// <summary>This will return the last world position of this finger based on the distance from the camera.</summary>
+		//カメラからの距離に基づいて、この指の最後のワールド位置を返す
 		public Vector3 GetLastWorldPosition(float distance, Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -418,10 +418,10 @@ namespace Lean.Touch
 			return default(Vector3);
 		}
 
-		/// <summary>This will return the world position of this finger based on the distance from the camera.</summary>
+		//カメラからの距離に基づいて、この指のワールド位置が返す
 		public Vector3 GetWorldPosition(float distance, Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -438,16 +438,16 @@ namespace Lean.Touch
 			return default(Vector3);
 		}
 
-		/// <summary>This will return the change in world position of this finger based on the distance from the camera.</summary>
+		//カメラからの距離に基づいたこの指のワールド位置の変化が返す
 		public Vector3 GetWorldDelta(float distance, Camera camera = null)
 		{
 			return GetWorldDelta(distance, distance, camera);
 		}
 
-		/// <summary>This will return the change in world position of this finger based on the last and current distance from the camera.</summary>
+		//カメラからの最後の現在の距離に基づいて、この指のワールド位置の変化が返す
 		public Vector3 GetWorldDelta(float lastDistance, float distance, Camera camera = null)
 		{
-			// Make sure the camera exists
+			//カメラが存在することを確認
 			camera = CwHelper.GetCamera(camera);
 
 			if (camera != null)
@@ -462,10 +462,11 @@ namespace Lean.Touch
 			return default(Vector3);
 		}
 
-		/// <summary>This will clear all snapshots for this finger and pool them, count = -1 for all.</summary>
+		//この指のすべてのスナップショットがクリアされ、プールされる
+		//すべてのスナップショットはカウント=-1
 		public void ClearSnapshots(int count = -1)
 		{
-			// Clear old ones only?
+			//古いものだけをクリアしますか？
 			if (count > 0 && count <= Snapshots.Count)
 			{
 				for (var i = 0; i < count; i++)
@@ -475,7 +476,7 @@ namespace Lean.Touch
 
 				Snapshots.RemoveRange(0, count);
 			}
-			// Clear all?
+			// すべてクリア？
 			else if (count < 0)
 			{
 				LeanSnapshot.InactiveSnapshots.AddRange(Snapshots);
@@ -484,16 +485,16 @@ namespace Lean.Touch
 			}
 		}
 
-		/// <summary>Calling this will instantly store a snapshot of the current finger position.</summary>
+		//現在の指の位置のスナップショットが即座に保存される
 		public void RecordSnapshot()
 		{
-			// Get an unused snapshot and set it up
+			//未使用のスナップショットを取得して設定
 			var snapshot = LeanSnapshot.Pop();
 
 			snapshot.Age            = Age;
 			snapshot.ScreenPosition = ScreenPosition;
 
-			// Add to list
+			// リストに追加する
 			Snapshots.Add(snapshot);
 		}
 	}

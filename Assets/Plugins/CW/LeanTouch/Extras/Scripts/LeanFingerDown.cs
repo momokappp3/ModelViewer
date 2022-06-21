@@ -5,7 +5,7 @@ using CW.Common;
 
 namespace Lean.Touch
 {
-	/// <summary>This component tells you when a finger begins touching the screen, as long as it satisfies the specified conditions.</summary>
+	//このコンポーネントは、指定された条件を満たす限り、指が画面に触れ始めたときに通知する
 	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanFingerDown")]
 	[AddComponentMenu(LeanTouch.ComponentPathPrefix + "Finger Down")]
 	public class LeanFingerDown : MonoBehaviour
