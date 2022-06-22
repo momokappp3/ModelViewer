@@ -700,8 +700,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9150927150041029023, guid: 5156427a064120a4cb4836538d9489f8,
         type: 3}
+      propertyPath: onFinger.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150927150041029023, guid: 5156427a064120a4cb4836538d9489f8,
+        type: 3}
+      propertyPath: onFinger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150927150041029023, guid: 5156427a064120a4cb4836538d9489f8,
+        type: 3}
       propertyPath: onWorld.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 33916345}
+    - target: {fileID: 9150927150041029023, guid: 5156427a064120a4cb4836538d9489f8,
+        type: 3}
+      propertyPath: onFinger.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5156427a064120a4cb4836538d9489f8, type: 3}

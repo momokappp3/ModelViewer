@@ -977,6 +977,7 @@ namespace Lean.Touch.Editor
 					if (finger.IsActive == false) state = "INACTIVE";
 					if (finger.Expired  == true ) state = "EXPIRED";
 
+					//Mathf.FloorToInt = 切り捨ての整数を返す
 					EditorGUILayout.LabelField(finger.Index + " - " + state + " - " + finger.TapCount + "  + " + Mathf.FloorToInt(screenPosition.x) + ", " + Mathf.FloorToInt(screenPosition.y) + ") - " + finger.Age.ToString("0.0"), style);
 				}
 			}
