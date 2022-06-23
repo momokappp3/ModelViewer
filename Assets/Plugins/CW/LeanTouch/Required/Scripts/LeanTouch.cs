@@ -12,6 +12,7 @@ namespace Lean.Touch
 	//Lean.Touch.LeanTouch.Instance.Fingersを介してこのデータにアクセスするか、Lean.Touch.LeanTouch.On___イベントにフックすることができる
 	//注：1フレームの入力遅延が発生した場合は、ScriptExecutionOrderを編集して、このスクリプトを他のスクリプトの前に強制的に更新する必要がある
 	[ExecuteInEditMode]
+	//[ExecuteAlways]
 	[DefaultExecutionOrder(-100)]
 	[DisallowMultipleComponent]
 	[HelpURL(HelpUrlPrefix + "LeanTouch")]
@@ -49,7 +50,13 @@ namespace Lean.Touch
 		//古くてタッピングの対象ではなくなった「非アクティブ」な指を管理するために使用される
 		public static List<LeanFinger> InactiveFingers = new List<LeanFinger>(10);
 
+		//------------------------------------------------------------------------------------
+
+		//event = デリゲートに対するプロパティのようなもの
+		//・デリゲートの呼び出しはクラス内部からのみ可能
+		//・外部からはデリゲートの追加/削除のみが可能
 		//これは、指が画面に触れ始めると発生する（LeanFinger =現在の指）
+		//System.Action = 呼び出すと実行される
 		public static event System.Action<LeanFinger> OnFingerDown;
 
 		//これは、指が画面に触れているフレームごとに発生する（LeanFinger = 現在の指）
