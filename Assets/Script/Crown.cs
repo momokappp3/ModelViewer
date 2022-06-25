@@ -18,29 +18,24 @@ public class Crown : MonoBehaviour
     {
         _targetAngle = 0f;
         _rotationSpeed = 4f;
+
+        LeanTouch.OnFingerDown += OnFingerDown;
+    }
+
+    void OnFingerDown(LeanFinger finger)
+    {
+        Debug.Log("タッチされた");
+        ScreenPosition = finger.StartScreenPosition;
+        _targetAngle = GetRotationAngleByTargetPosition(new Vector3(ScreenPosition.x, ScreenPosition.y, 0));
+        Debug.Log(ScreenPosition.x + "," + ScreenPosition.y);
     }
 
     void Update()
     {
         transform.Rotate(new Vector3(0f, 0.05f, 0f));
 
-        if (LeanTouch.Fingers[0] == null)
-        {
-            Debug.Log("null");
-        }
-        else
-        {
-            if (LeanTouch.Fingers[0].Set)
-            {
-                Debug.Log("タッチされた");
-                ScreenPosition = LeanTouch.Fingers[0].StartScreenPosition;
-                _targetAngle = GetRotationAngleByTargetPosition(new Vector3(ScreenPosition.x, ScreenPosition.y, 0));
-                Debug.Log(ScreenPosition.x + "," + ScreenPosition.y);
-            }
-        }
-
-       // transform.eulerAngles
-        ///    = new Vector3(0f,0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
+        transform.eulerAngles
+            = new Vector3(0f,0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
     }
 
     float GetRotationAngleByTargetPosition(Vector3 mousePosition)

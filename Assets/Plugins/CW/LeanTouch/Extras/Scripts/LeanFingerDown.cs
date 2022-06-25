@@ -24,23 +24,28 @@ namespace Lean.Touch
 		}
 
 		//StartedOverGuiで指を無視しますか？
-		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } } [SerializeField] private bool ignoreStartedOverGui = true;
+		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } }
+		[SerializeField] private bool ignoreStartedOverGui = true;
 
 		//このコンポーネントはどの入力に反応する必要がありますか？
-		public ButtonTypes RequiredButtons { set { requiredButtons = value; } get { return requiredButtons; } } [SerializeField] private ButtonTypes requiredButtons = (ButtonTypes)~0;
+		public ButtonTypes RequiredButtons { set { requiredButtons = value; } get { return requiredButtons; } }
+		[SerializeField] private ButtonTypes requiredButtons = (ButtonTypes)~0;
 
 		//指定されたオブジェクトが設定されていて選択されていない場合、このコンポーネントは何もしない
-		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } } [SerializeField] private LeanSelectable requiredSelectable;
+		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } }
+		[SerializeField] private LeanSelectable requiredSelectable;
 
 		//このイベントは、指が画面に触れ始めたときに上記の条件が満たされた場合に呼び出される
-		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } } [SerializeField] private LeanFingerEvent onFinger;
+		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } }
+		[SerializeField] private LeanFingerEvent onFinger;
 
 		//指から世界座標を見つけるために使用されるメソッド。 詳細については、LeanScreenDepthのドキュメントを参照してください
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
 		//このイベントは、指が画面に触れ始めたときに上記の条件が満たされた場合に呼び出される
 		//Vector3=ScreenDepth設定に基づく開始点
-		public Vector3Event OnWorld { get { if (onWorld == null) onWorld = new Vector3Event(); return onWorld; } } [SerializeField] private Vector3Event onWorld;
+		public Vector3Event OnWorld { get { if (onWorld == null) onWorld = new Vector3Event(); return onWorld; } }
+		[SerializeField] private Vector3Event onWorld;
 
 		//このイベントは、指が画面に触れ始めたときに上記の条件が満たされた場合に呼び出される
 		//Vector2=画面スペースでの指の位置
@@ -51,8 +56,7 @@ namespace Lean.Touch
 				return onScreen; 
 			} 
 		}
-		//[SerializeField] private Vector2Event onScreen;
-		[SerializeField] public Vector2Event onScreen;
+		[SerializeField] private Vector2Event onScreen;
 
 #if UNITY_EDITOR
 		protected virtual void Reset()
