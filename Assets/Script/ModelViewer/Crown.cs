@@ -9,6 +9,7 @@ public class Crown : MonoBehaviour
     //タッチした時の座標指が離れている場合前タッチした時の座標
     public Vector2 ScreenPosition { set; private get; }
 
+    public bool _isRotateModel = false;
     private float _targetAngle = 0f;
     public float _rotationSpeed = 4f;
 
@@ -16,6 +17,7 @@ public class Crown : MonoBehaviour
 
     void Start()
     {
+        _isRotateModel = false;
         _targetAngle = 0f;
         _rotationSpeed = 4f;
 
@@ -32,13 +34,22 @@ public class Crown : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(new Vector3(0f, 0.05f, 0f));
 
-        transform.eulerAngles
+        if (_isRotateModel)
+        {
+            transform.eulerAngles
             = new Vector3(0f,0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
+
+            transform.Rotate(new Vector3(0f, 0.5f, 0f));
+        }
     }
 
-    float GetRotationAngleByTargetPosition(Vector3 mousePosition)
+    public void OnClick()
+    {
+        _isRotateModel = _isRotateModel ? false : true;
+    }
+
+        float GetRotationAngleByTargetPosition(Vector3 mousePosition)
     {
 
         //自身の位置をワールド座標からスクリーン座標へ変換する
