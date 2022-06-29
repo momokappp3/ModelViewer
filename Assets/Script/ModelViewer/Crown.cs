@@ -13,6 +13,8 @@ public class Crown : MonoBehaviour
     private float _targetAngle = 0f;
     public float _rotationSpeed = 4f;
 
+    private bool _isLeapAngle = false;
+
     [SerializeField] private LeanFingerDown _leanFingerDown;
 
     void Start()
@@ -29,27 +31,48 @@ public class Crown : MonoBehaviour
         Debug.Log("タッチされた");
         ScreenPosition = finger.StartScreenPosition;
         _targetAngle = GetRotationAngleByTargetPosition(new Vector3(ScreenPosition.x, ScreenPosition.y, 0));
+
+        if(_targetAngle < 0)
+        {
+            _targetAngle += 360.0f;
+        }
+
         Debug.Log(ScreenPosition.x + "," + ScreenPosition.y);
+        _isLeapAngle = true;
+        
     }
 
     void Update()
     {
-
-        if (_isRotateModel)
+        if (_isLeapAngle)
         {
             transform.eulerAngles
-            = new Vector3(0f,0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
+                = new Vector3(0f, 0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
 
-            transform.Rotate(new Vector3(0f, 0.5f, 0f));
+            var zPlus = this.transform.eulerAngles.z + 1f;
+            var zMinus = this.transform.eulerAngles.z - 1f;
+
+            //Debug.Log($"Target({_targetAngle}) : Plus({zPlus}) : Minus({zMinus})");
+
+            if(_targetAngle >= zMinus && _targetAngle <= zPlus)
+            {
+                _isLeapAngle = false;
+            }
+        }
+        if (_isRotateModel)
+        {
+            //transform.Rotate(new Vector3(0f, 0.2f, 0f));
+            transform.RotateAround(transform.position, transform.up, 50f * Time.deltaTime);
         }
     }
 
     public void OnClick()
     {
         _isRotateModel = _isRotateModel ? false : true;
+        Debug.Log("クリック");
     }
 
-        float GetRotationAngleByTargetPosition(Vector3 mousePosition)
+    float GetRotationAngleByTargetPosition(Vector3 mousePosition)
     {
 
         //自身の位置をワールド座標からスクリーン座標へ変換する
