@@ -22,7 +22,26 @@ public class RenderTextureSystem : MonoBehaviour
             TryGetComponent(out _camera);
         }
         _camera.cullingMask = 1 << _layerNum;
+    }
 
+    //RenderTextureを作りたいとき呼ぶ
+    public bool Initialize(int width, int height)
+    {
+        Release();
+
+        _renderTexture = new RenderTexture(width, height, 32);
+
+        if (_renderTexture == null)
+        {
+            return false;
+        }
+
+        //実際に RenderTexture オブジェクトを作成
+        _renderTexture.Create();
+
+        GetLayerNumber();
+
+        return true;
     }
 
     private void GetLayerNumber()
@@ -30,11 +49,7 @@ public class RenderTextureSystem : MonoBehaviour
         _layerNum = LayerMask.NameToLayer("RenderTexture");
     }
 
-    private void OnDestroy()
-    {
-        Release();
-    }
-
+    //入力する画像　出力する画像
     private void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
         if(_renderTexture == null)
@@ -56,36 +71,6 @@ public class RenderTextureSystem : MonoBehaviour
         return _renderTexture;
     }
 
-    public bool Initialize(int width, int height)
-    {
-        Release();
-
-        _renderTexture = new RenderTexture(width, height, 32);
-
-        if (_renderTexture == null)
-        {
-            return false;
-        }
-
-        _renderTexture.Create();
-
-        GetLayerNumber();
-
-        return true;
-    }
-
-    public bool Release()
-    {
-        if (_renderTexture == null)
-        {
-            return false;
-        }
-
-        _renderTexture.Release();
-
-        return true;
-    }
-
     public void SetLayerAll()
     {
         Transform trans = this.transform;
@@ -103,5 +88,22 @@ public class RenderTextureSystem : MonoBehaviour
 
             SetLayer(ref child);
         }
+    }
+
+    public bool Release()
+    {
+        if (_renderTexture == null)
+        {
+            return false;
+        }
+
+        _renderTexture.Release();
+
+        return true;
+    }
+
+    private void OnDestroy()
+    {
+        Release();
     }
 }

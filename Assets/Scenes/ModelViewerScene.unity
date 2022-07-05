@@ -422,6 +422,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1088325330 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2447155178079242039, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3217458118866710297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb097c07812299498915a0a3e793843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1805162114
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +523,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2447155178079242039, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+      propertyPath: ScreenDepth.Camera
+      value: 
+      objectReference: {fileID: 840582397}
     - target: {fileID: 3217458118553049682, guid: 8e3cfb721ddc1254da810c17bb5046bb,
         type: 3}
       propertyPath: m_Color.b
@@ -581,6 +598,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 3217458119376075282, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 840582397}
+    - target: {fileID: 3217458119376075283, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 840582397}
+    - target: {fileID: 3217458119376075283, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+      propertyPath: _leanFingerDown
+      value: 
+      objectReference: {fileID: 1088325330}
     - target: {fileID: 3217458119771769380, guid: 8e3cfb721ddc1254da810c17bb5046bb,
         type: 3}
       propertyPath: m_RenderMode
@@ -629,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 3217458119921816589, guid: 8e3cfb721ddc1254da810c17bb5046bb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3217458119921816589, guid: 8e3cfb721ddc1254da810c17bb5046bb,
         type: 3}

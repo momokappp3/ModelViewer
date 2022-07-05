@@ -16,6 +16,7 @@ public class Crown : MonoBehaviour
     private bool _isLeapAngle = false;
 
     [SerializeField] private LeanFingerDown _leanFingerDown;
+    [SerializeField] private Camera _camera;
 
     void Start()
     {
@@ -76,7 +77,7 @@ public class Crown : MonoBehaviour
     {
 
         //自身の位置をワールド座標からスクリーン座標へ変換する
-        Vector3 selfScreenPoint = Camera.main.WorldToScreenPoint(this.transform.position);
+        Vector3 selfScreenPoint = _camera.WorldToScreenPoint(this.transform.position);
         //カプセル位置とマウスクリック位置の座標の差分を計算
         //diff x = 隣辺 y = 対辺 
         Vector3 diff = mousePosition - selfScreenPoint;
