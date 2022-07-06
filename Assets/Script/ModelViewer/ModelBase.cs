@@ -48,6 +48,8 @@ public class ModelBase : MonoBehaviour
                     //このオブジェクトのマウス入力が効くようになる
                     //このオブジェクトのUIが表示されるようになる
                     break;
+                case Sequence.Max:
+                    break;
                 default:
                     break;
             }
