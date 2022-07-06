@@ -135,6 +135,71 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[0]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[1]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[2]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[3]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[4]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[5]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[6]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[7]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[8]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _model.Array.data[9]
+      value: 
+      objectReference: {fileID: 3217458119921816586, guid: 8e3cfb721ddc1254da810c17bb5046bb,
+        type: 3}
     - target: {fileID: 2876566383735095591, guid: 6f76cb9703723f841b00ec733120d2fb,
         type: 3}
       propertyPath: m_RootOrder
