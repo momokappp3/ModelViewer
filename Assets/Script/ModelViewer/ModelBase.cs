@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ModelBase : MonoBehaviour
 {
+    [SerializeField] public Transform _top;
+    [SerializeField] public Transform　_buttom;
+
+    private Camera _mainCamera;
+
     enum Sequence
     {
         MenuMove,
@@ -19,21 +24,38 @@ public class ModelBase : MonoBehaviour
     {
         _sequence = Sequence.Max;
         _isSelect = false;
+        _mainCamera = GameObject.FindWithTag("GameController").GetComponent<Camera>();
     }
 
     void Update()
     {
+
+        // オブジェクトの上と下のスクリーン座標
+        Debug.Log(_mainCamera.WorldToScreenPoint(_top.transform.position));
+        Debug.Log(_mainCamera.WorldToScreenPoint(_buttom.transform.position));
+
         if (_sequence == Sequence.MenuMove && !_isSelect)
         {
-            if (this.transform.position.y < Screen.height / 2)
+            //範囲外まで動かす
+            if (this.gameObject.transform.position.y > Screen.height / 2)
             {
-                //上に除外する
-                //除外されたらDestroy Listからも削除する
+
             }
             else
             {
-                //下に除外する
-                //除外されたらDestoroy Listからも削除する
+
+            }
+
+            if (_mainCamera.WorldToScreenPoint(_buttom.transform.position).y + 10f > Screen.height)
+            {
+                //範囲外(上)に除外する
+                Destroy(this.gameObject);
+            }
+            
+            if(_mainCamera.WorldToScreenPoint(_top.transform.position).y - 10f < 0)
+            {
+                //範囲外(下)に除外する
+                Destroy(this.gameObject);
             }
         }
         else
