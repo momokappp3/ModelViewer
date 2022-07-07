@@ -6,6 +6,7 @@ using Lean.Touch;
 public class Crown : MonoBehaviour
 {
     [SerializeField] Transform _crown;  //動かすオブジェクト
+    private Camera _camera = null;
 
     //タッチした時の座標指が離れている場合前タッチした時の座標
     public Vector2 ScreenPosition { set; private get; }
@@ -15,9 +16,7 @@ public class Crown : MonoBehaviour
     public float _rotationSpeed = 4f;
 
     private bool _isLeapAngle = false;
-
-    //private LeanFingerDown _leanFingerDown;
-    private Camera _camera = null;
+    
 
     void Start()
     {
@@ -26,8 +25,6 @@ public class Crown : MonoBehaviour
         _rotationSpeed = 4f;
 
         _camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-
-        //タイミングを変える
         LeanTouch.OnFingerDown += OnFingerDown;
     }
 

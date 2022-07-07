@@ -11,23 +11,25 @@ public class SelectMenu : MonoBehaviour
     private List<GameObject> _modelInstance = new List<GameObject>();  //生成されているModel(3個か4個) 
 
     private Vector2 _screenSize = Vector2.zero;
+    //生成する位置どれだけ空けるか(World座標)
+    private Vector3 _modelOffset = Vector3.zero; 
     //topから生成されているモデルtopまで, 0から生成されているbuttomまで
     private Vector2 _screenBlank;  
 
     void Start()
     {
-        var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
+        //position Xがおかしい　もう既に　_camera.ScreenToWorldPointが上手くいっていない
+        var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,_camera.nearClipPlane));
 
         _screenSize = new Vector2(position.x, position.y);
+        _modelOffset = _camera.ScreenToWorldPoint(new Vector3(0f, 20f, 0f));
 
-        Debug.Log(position);
-
+        Debug.Log(_screenSize);
         //とりあえず真中に生成
         if (_modelInstance.Count == 0)
         {
-            _modelInstance.Add(Instantiate(_model[0], new Vector3(0, 0, 3f), Quaternion.identity));
-            //DrawFingetDownを無効にする
-
+            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(_screenSize.x, _screenSize.y, 3f), Quaternion.identity));
+            _modelIndex++;
         }
     }
 
