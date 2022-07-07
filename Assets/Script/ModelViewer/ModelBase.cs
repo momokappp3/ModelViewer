@@ -6,8 +6,10 @@ public class ModelBase : MonoBehaviour
 {
     [SerializeField] public Transform _top;
     [SerializeField] public Transform　_buttom;
+    [SerializeField] private GameObject _enableToViewer;
 
     private Camera _mainCamera;
+    public bool _isUpMove = false;
 
     enum Sequence
     {
@@ -24,7 +26,8 @@ public class ModelBase : MonoBehaviour
     {
         _sequence = Sequence.Max;
         _isSelect = false;
-        _mainCamera = GameObject.FindWithTag("GameController").GetComponent<Camera>();
+        _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        _enableToViewer.SetActive(false);
     }
 
     void Update()
@@ -65,10 +68,10 @@ public class ModelBase : MonoBehaviour
                 case Sequence.MenuMove:
                     //真ん中に移動させる
                     //大きくする
+                    //_sequence = Sequence.Viewer;
                     break;
                 case Sequence.Viewer:
-                    //このオブジェクトのマウス入力が効くようになる
-                    //このオブジェクトのUIが表示されるようになる
+                    _enableToViewer.SetActive(false);
                     break;
                 case Sequence.Max:
                     break;

@@ -25,7 +25,9 @@ public class SelectMenu : MonoBehaviour
         //‚Æ‚è‚ ‚¦‚¸^’†‚É¶¬
         if (_modelInstance.Count == 0)
         {
-            _modelInstance.Add(Instantiate(_model[0], new Vector3(0, 0 , 3f), Quaternion.identity));
+            _modelInstance.Add(Instantiate(_model[0], new Vector3(0, 0, 3f), Quaternion.identity));
+            //DrawFingetDown‚ğ–³Œø‚É‚·‚é
+
         }
     }
 

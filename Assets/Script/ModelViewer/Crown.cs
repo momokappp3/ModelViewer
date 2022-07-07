@@ -5,7 +5,8 @@ using Lean.Touch;
 
 public class Crown : MonoBehaviour
 {
-    //素結合大事
+    [SerializeField] Transform _crown;  //動かすオブジェクト
+
     //タッチした時の座標指が離れている場合前タッチした時の座標
     public Vector2 ScreenPosition { set; private get; }
 
@@ -15,8 +16,8 @@ public class Crown : MonoBehaviour
 
     private bool _isLeapAngle = false;
 
-    [SerializeField] private LeanFingerDown _leanFingerDown;
-    [SerializeField] private Camera _camera;
+    //private LeanFingerDown _leanFingerDown;
+    private Camera _camera = null;
 
     void Start()
     {
@@ -24,6 +25,9 @@ public class Crown : MonoBehaviour
         _targetAngle = 0f;
         _rotationSpeed = 4f;
 
+        _camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+        //タイミングを変える
         LeanTouch.OnFingerDown += OnFingerDown;
     }
 
@@ -47,11 +51,11 @@ public class Crown : MonoBehaviour
     {
         if (_isLeapAngle)
         {
-            transform.eulerAngles
-                = new Vector3(0f, 0f, Mathf.LerpAngle(this.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
+            _crown.transform.eulerAngles
+                = new Vector3(0f, 0f, Mathf.LerpAngle(_crown.transform.eulerAngles.z, _targetAngle, Time.deltaTime * _rotationSpeed));
 
-            var zPlus = this.transform.eulerAngles.z + 1f;
-            var zMinus = this.transform.eulerAngles.z - 1f;
+            var zPlus = _crown.transform.eulerAngles.z + 1f;
+            var zMinus = _crown.transform.eulerAngles.z - 1f;
 
             //Debug.Log($"Target({_targetAngle}) : Plus({zPlus}) : Minus({zMinus})");
 
@@ -63,7 +67,7 @@ public class Crown : MonoBehaviour
         if (_isRotateModel)
         {
             //transform.Rotate(new Vector3(0f, 0.2f, 0f));
-            transform.RotateAround(transform.position, transform.up, 50f * Time.deltaTime);
+            _crown.transform.RotateAround(transform.position, transform.up, 50f * Time.deltaTime);
         }
     }
 
@@ -77,7 +81,7 @@ public class Crown : MonoBehaviour
     {
 
         //自身の位置をワールド座標からスクリーン座標へ変換する
-        Vector3 selfScreenPoint = _camera.WorldToScreenPoint(this.transform.position);
+        Vector3 selfScreenPoint = _camera.WorldToScreenPoint(_crown.transform.position);
         //カプセル位置とマウスクリック位置の座標の差分を計算
         //diff x = 隣辺 y = 対辺 
         Vector3 diff = mousePosition - selfScreenPoint;
