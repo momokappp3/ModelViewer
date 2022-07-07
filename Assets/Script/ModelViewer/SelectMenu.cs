@@ -19,7 +19,7 @@ public class SelectMenu : MonoBehaviour
     void Start()
     {
         //position XÇ™Ç®Ç©ÇµÇ¢Å@Ç‡Ç§ä˘Ç…Å@_camera.ScreenToWorldPointÇ™è„éËÇ≠Ç¢Ç¡ÇƒÇ¢Ç»Ç¢
-        var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,_camera.nearClipPlane));
+        var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,3));
 
         _screenSize = new Vector2(position.x, position.y);
         _modelOffset = _camera.ScreenToWorldPoint(new Vector3(0f, 20f, 0f));
@@ -28,7 +28,7 @@ public class SelectMenu : MonoBehaviour
         //Ç∆ÇËÇ†Ç¶Ç∏ê^íÜÇ…ê∂ê¨
         if (_modelInstance.Count == 0)
         {
-            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(_screenSize.x, _screenSize.y, 3f), Quaternion.identity));
+            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(_screenSize.x / 2, _screenSize.y, 3f), Quaternion.identity));
             _modelIndex++;
         }
     }
