@@ -25,11 +25,13 @@ public class SelectMenu : MonoBehaviour
         _modelOffset = _camera.ScreenToWorldPoint(new Vector3(0f, 20f, 0f));
 
         Debug.Log(_screenSize);
-        //とりあえず真中に生成
+        //とりあえずxは真中に生成
         if (_modelInstance.Count == 0)
         {
-            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(_screenSize.x / 2, _screenSize.y, 3f), Quaternion.identity));
+            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(0, _screenSize.y, 3f), Quaternion.identity));
             _modelIndex++;
+
+            //前作った_buttomがスクリーン座標の縦(0)からはみ出ていなかったら生成する
         }
     }
 
