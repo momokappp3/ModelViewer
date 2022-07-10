@@ -747,10 +747,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5615b448ef5c34ca2f03708de0811b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _top: {fileID: 7320918859641511287}
-  _buttom: {fileID: 6594373027544108342}
+  _topObject: {fileID: 7320918859641511287}
+  _buttomObject: {fileID: 6594373027544108342}
   _enableToViewer: {fileID: 5053627517081179934}
+  _top: {x: 0, y: 0, z: 0}
+  _buttom: {x: 0, y: 0, z: 0}
   _isUpMove: 0
+  _diffToMiddle: 0
   _isSelect: 0
 --- !u!1 &3832433843167628072
 GameObject:
@@ -776,8 +779,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3832433843167628072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2228238020264234043}
@@ -879,8 +882,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7556164889392204672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2228238020264234043}
@@ -897,6 +900,7 @@ GameObject:
   - component: {fileID: 2228238020264234043}
   - component: {fileID: 5043289629059569294}
   - component: {fileID: 847886158510141935}
+  - component: {fileID: 3154544033055698757}
   m_Layer: 0
   m_Name: frame1
   m_TagString: Untagged
@@ -991,6 +995,19 @@ MonoBehaviour:
   alphaThreshold: 0.1
   drawOutside: 1
   enableInstancing: 0
+--- !u!65 &3154544033055698757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194187503083503054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &671180036339998211
 PrefabInstance:
   m_ObjectHideFlags: 0

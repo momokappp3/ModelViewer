@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class ModelBase : MonoBehaviour
 {
-    [SerializeField] public Transform _top;
-    [SerializeField] public Transform　_buttom;
+    [SerializeField] private Transform _topObject;
+    [SerializeField] private Transform　_buttomObject;
     [SerializeField] private GameObject _enableToViewer;
+
+    public Vector3 _top = Vector3.zero;
+    public Vector3 _buttom = Vector3.zero;
 
     private Camera _mainCamera;
     public bool _isUpMove = false;
+    public float _diffToMiddle = 0f;  //上の位置から真ん中までの差
 
     enum Sequence
     {
@@ -28,14 +32,25 @@ public class ModelBase : MonoBehaviour
         _isSelect = false;
         _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         _enableToViewer.SetActive(false);
+
+        _diffToMiddle = _top.y - this.transform.position.y;
+
+        _top = transform.TransformPoint(_topObject.position);
+        _buttom = transform.TransformPoint(_buttomObject.position);
+    }
+
+    public float GetButtomY()
+    {
+        _buttom = transform.TransformPoint(_buttomObject.position);
+        return _buttom.y;
     }
 
     void Update()
     {
 
         // オブジェクトの上と下のスクリーン座標
-        Debug.Log(_mainCamera.WorldToScreenPoint(_top.transform.position));
-        Debug.Log(_mainCamera.WorldToScreenPoint(_buttom.transform.position));
+        Debug.Log(_mainCamera.WorldToScreenPoint(_top));
+        Debug.Log(_mainCamera.WorldToScreenPoint(_buttom));
 
         if (_sequence == Sequence.MenuMove && !_isSelect)
         {
@@ -49,13 +64,13 @@ public class ModelBase : MonoBehaviour
 
             }
 
-            if (_mainCamera.WorldToScreenPoint(_buttom.transform.position).y + 10f > Screen.height)
+            if (_mainCamera.WorldToScreenPoint(_buttom).y + 10f > Screen.height)
             {
                 //範囲外(上)に除外する
                 Destroy(this.gameObject);
             }
             
-            if(_mainCamera.WorldToScreenPoint(_top.transform.position).y - 10f < 0)
+            if(_mainCamera.WorldToScreenPoint(_top).y - 10f < 0)
             {
                 //範囲外(下)に除外する
                 Destroy(this.gameObject);

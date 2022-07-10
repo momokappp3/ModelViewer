@@ -31,7 +31,15 @@ public class SelectMenu : MonoBehaviour
             _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(0, _screenSize.y, 3f), Quaternion.identity));
             _modelIndex++;
 
+            //生成されたオブジェクトの一番下
+            var buttomPosi = _modelInstance[_modelIndex - 1].GetComponent<ModelBase>().GetButtomY();
             //前作った_buttomがスクリーン座標の縦(0)からはみ出ていなかったら生成する
+            if (buttomPosi > 0)
+            {
+                _modelInstance.Add(Instantiate(_model[_modelIndex],
+                    new Vector3(0, buttomPosi - _model[_modelIndex].GetComponent<ModelBase>()._diffToMiddle, 3f), Quaternion.identity));
+                _modelIndex++;
+            }
         }
     }
 
