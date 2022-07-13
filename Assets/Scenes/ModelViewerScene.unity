@@ -278,6 +278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2876566384203303722, guid: 6f76cb9703723f841b00ec733120d2fb,
         type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2876566384203303722, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
       propertyPath: far clip plane
       value: 500
       objectReference: {fileID: 0}

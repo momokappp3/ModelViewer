@@ -37,7 +37,7 @@ public class SelectMenu : MonoBehaviour
             if (buttomPosi > 0)
             {
                 _modelInstance.Add(Instantiate(_model[_modelIndex],
-                    new Vector3(0, buttomPosi - _model[_modelIndex].GetComponent<ModelBase>()._diffToMiddle, 3f), Quaternion.identity));
+                    new Vector3(0, buttomPosi - _model[_modelIndex -1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
                 _modelIndex++;
             }
         }

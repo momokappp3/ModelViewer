@@ -5,7 +5,7 @@ using UnityEngine;
 public class ModelBase : MonoBehaviour
 {
     [SerializeField] private Transform _topObject;
-    [SerializeField] private Transform　_buttomObject;
+    [SerializeField] private Transform _buttomObject;
     [SerializeField] private GameObject _enableToViewer;
 
     public Vector3 _top = Vector3.zero;
@@ -35,14 +35,20 @@ public class ModelBase : MonoBehaviour
 
         _diffToMiddle = _top.y - this.transform.position.y;
 
-        _top = transform.TransformPoint(_topObject.position);
-        _buttom = transform.TransformPoint(_buttomObject.position);
+        _top = _topObject.transform.position;
+        _buttom = _buttomObject.transform.position;
     }
 
     public float GetButtomY()
     {
-        _buttom = transform.TransformPoint(_buttomObject.position);
+        _buttom = _buttomObject.transform.position;
         return _buttom.y;
+    }
+
+    public float GetDiffToMiddle()
+    {
+        _diffToMiddle = _topObject.position.y - this.transform.position.y;
+        return _diffToMiddle;
     }
 
     void Update()
@@ -69,8 +75,8 @@ public class ModelBase : MonoBehaviour
                 //範囲外(上)に除外する
                 Destroy(this.gameObject);
             }
-            
-            if(_mainCamera.WorldToScreenPoint(_top).y - 10f < 0)
+
+            if (_mainCamera.WorldToScreenPoint(_top).y - 10f < 0)
             {
                 //範囲外(下)に除外する
                 Destroy(this.gameObject);
