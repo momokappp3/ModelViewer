@@ -12,7 +12,7 @@ public class SelectMenu : MonoBehaviour
 
     private Vector2 _screenSize = Vector2.zero;
     //生成する位置どれだけ空けるか(World座標)
-    private Vector3 _modelOffset = Vector3.zero; 
+    private float _modelOffsetY = 0f;
     //topから生成されているモデルtopまで, 0から生成されているbuttomまで
     private Vector2 _screenBlank;  
 
@@ -22,7 +22,7 @@ public class SelectMenu : MonoBehaviour
         var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,3));
 
         _screenSize = new Vector2(position.x, position.y);
-        _modelOffset = _camera.ScreenToWorldPoint(new Vector3(0f, 20f, 0f));
+        _modelOffsetY = 1f;
 
         Debug.Log(_screenSize);
         //とりあえずxは真中に生成
@@ -37,7 +37,7 @@ public class SelectMenu : MonoBehaviour
             if (buttomPosi > 0)
             {
                 _modelInstance.Add(Instantiate(_model[_modelIndex],
-                    new Vector3(0, buttomPosi - _model[_modelIndex -1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
+                    new Vector3(0, buttomPosi - _modelOffsetY - _model[_modelIndex -1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
                 _modelIndex++;
             }
         }
