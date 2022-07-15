@@ -53,11 +53,6 @@ public class ModelBase : MonoBehaviour
 
     void Update()
     {
-
-        // オブジェクトの上と下のスクリーン座標
-        Debug.Log(_mainCamera.WorldToScreenPoint(_top));
-        Debug.Log(_mainCamera.WorldToScreenPoint(_buttom));
-
         if (_sequence == Sequence.MenuMove && !_isSelect)
         {
             //範囲外まで動かす

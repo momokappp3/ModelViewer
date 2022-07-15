@@ -10,37 +10,28 @@ public class SelectMenu : MonoBehaviour
     private int _modelIndex = 0;  //Listのどのモデルを生成するか
     private List<GameObject> _modelInstance = new List<GameObject>();  //生成されているModel(3個か4個) 
 
-    private Vector2 _screenSize = Vector2.zero;
+    private Vector2 _screenWorldRightUp = Vector2.zero;
+    private Vector2 _screenWorldLeftDown = Vector2.zero;
     //生成する位置どれだけ空けるか(World座標)
     private float _modelOffsetY = 0f;
-    //topから生成されているモデルtopまで, 0から生成されているbuttomまで
-    private Vector2 _screenBlank;  
 
     void Start()
     {
-        //position Xがおかしい　もう既に　_camera.ScreenToWorldPointが上手くいっていない
-        var position = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,3));
+        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //右上
+        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //左下
 
-        _screenSize = new Vector2(position.x, position.y);
+        _screenWorldRightUp = new Vector2(rightUp.x, rightUp.y);
+        _screenWorldLeftDown = new Vector2(leftDown.x, leftDown.y);
         _modelOffsetY = 1f;
 
-        Debug.Log(_screenSize);
-        //とりあえずxは真中に生成
-        if (_modelInstance.Count == 0)
-        {
-            _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(0, _screenSize.y, 3f), Quaternion.identity));
-            _modelIndex++;
+        //1個モデル生成(モデルの真ん中を一番上に)
+        _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(0, _screenWorldRightUp.y, 3f), Quaternion.identity));
+        _modelIndex++;
 
-            //生成されたオブジェクトの一番下
-            var buttomPosi = _modelInstance[_modelIndex - 1].GetComponent<ModelBase>().GetButtomY();
-            //前作った_buttomがスクリーン座標の縦(0)からはみ出ていなかったら生成する
-            if (buttomPosi > 0)
-            {
-                _modelInstance.Add(Instantiate(_model[_modelIndex],
-                    new Vector3(0, buttomPosi - _modelOffsetY - _model[_modelIndex -1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
-                _modelIndex++;
-            }
-        }
+        //前に生成したモデルの下に生成
+        // 引数1 基準のモデル 引数2 上に生成するか下に生成するか
+        ModelGenerate();
+        ModelGenerate();
     }
 
     void Update()
@@ -52,15 +43,37 @@ public class SelectMenu : MonoBehaviour
                 _modelInstance.Remove(_modelInstance[i]);
             }
         }
+#if UNITY_EDITOR
+        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //右上
+        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //左下
 
-        //とりあえず上から順番に生成
-
-
-        //モデルサイズがスクリーン縦の範囲内なら生成させる
-        //真ん中作って上下に置けるか判断する
-        //if(Screen.height < )
-
+        _screenWorldRightUp = new Vector2(rightUp.x, rightUp.y);
+        _screenWorldLeftDown = new Vector2(leftDown.x, leftDown.y);
+#endif
 
         //スワイプでモデルの位置を移動させる
+
+
+
+
+
+
+
+
+    }
+
+    //引数は生成するモデルのindex
+    void ModelGenerate()
+    {
+        //前に生成されたモデルの一番下の座標
+        var buttomPosi = _modelInstance[_modelIndex - 1].GetComponent<ModelBase>().GetButtomY();
+        //モデルサイズがスクリーン縦の範囲外ならreturn
+        if (buttomPosi < _screenWorldLeftDown.y )
+        {
+            return;
+        }
+        _modelInstance.Add(Instantiate(_model[_modelIndex],
+            new Vector3(0, buttomPosi - _modelOffsetY - _model[_modelIndex - 1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
+        _modelIndex++;
     }
 }
