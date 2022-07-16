@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using Lean.Common;
 using CW.Common;
 
 namespace Lean.Touch
 {
-	//‚±‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ÍAw’è‚³‚ê‚½ğŒ‚ğ–‚½‚·ŒÀ‚èAw‚ª‰æ–Ê‚ÉG‚ên‚ß‚½‚Æ‚«‚É’Ê’m‚·‚é
+	//ã“ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯ã€æŒ‡å®šã•ã‚ŒãŸæ¡ä»¶ã‚’æº€ãŸã™é™ã‚Šã€æŒ‡ãŒç”»é¢ã«è§¦ã‚Œå§‹ã‚ãŸã¨ãã«é€šçŸ¥ã™ã‚‹
 	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanFingerDown")]
 	[AddComponentMenu(LeanTouch.ComponentPathPrefix + "Finger Down")]
 	public class LeanFingerDown : MonoBehaviour
@@ -23,32 +23,32 @@ namespace Lean.Touch
 			Touch       = 1 << 5
 		}
 
-		//StartedOverGui‚Åw‚ğ–³‹‚µ‚Ü‚·‚©H
+		//StartedOverGuiã§æŒ‡ã‚’ç„¡è¦–ã—ã¾ã™ã‹ï¼Ÿ
 		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } }
 		[SerializeField] private bool ignoreStartedOverGui = true;
 
-		//‚±‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Í‚Ç‚Ì“ü—Í‚É”½‰‚·‚é•K—v‚ª‚ ‚è‚Ü‚·‚©H
+		//ã“ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯ã©ã®å…¥åŠ›ã«åå¿œã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã‹ï¼Ÿ
 		public ButtonTypes RequiredButtons { set { requiredButtons = value; } get { return requiredButtons; } }
 		[SerializeField] private ButtonTypes requiredButtons = (ButtonTypes)~0;
 
-		//w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ä‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ê‡A‚±‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Í‰½‚à‚µ‚È‚¢
+		//æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¦é¸æŠã•ã‚Œã¦ã„ãªã„å ´åˆã€ã“ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯ä½•ã‚‚ã—ãªã„
 		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } }
 		[SerializeField] private LeanSelectable requiredSelectable;
 
-		//‚±‚ÌƒCƒxƒ“ƒg‚ÍAw‚ª‰æ–Ê‚ÉG‚ên‚ß‚½‚Æ‚«‚Éã‹L‚ÌğŒ‚ª–‚½‚³‚ê‚½ê‡‚ÉŒÄ‚Ño‚³‚ê‚é
+		//ã“ã®ã‚¤ãƒ™ãƒ³ãƒˆã¯ã€æŒ‡ãŒç”»é¢ã«è§¦ã‚Œå§‹ã‚ãŸã¨ãã«ä¸Šè¨˜ã®æ¡ä»¶ãŒæº€ãŸã•ã‚ŒãŸå ´åˆã«å‘¼ã³å‡ºã•ã‚Œã‚‹
 		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } }
 		[SerializeField] private LeanFingerEvent onFinger;
 
-		//w‚©‚ç¢ŠEÀ•W‚ğŒ©‚Â‚¯‚é‚½‚ß‚Ég—p‚³‚ê‚éƒƒ\ƒbƒhB Ú×‚É‚Â‚¢‚Ä‚ÍALeanScreenDepth‚ÌƒhƒLƒ…ƒƒ“ƒg‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢
+		//æŒ‡ã‹ã‚‰ä¸–ç•Œåº§æ¨™ã‚’è¦‹ã¤ã‘ã‚‹ãŸã‚ã«ä½¿ç”¨ã•ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚ è©³ç´°ã«ã¤ã„ã¦ã¯ã€LeanScreenDepthã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’å‚ç…§ã—ã¦ãã ã•ã„
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
-		//‚±‚ÌƒCƒxƒ“ƒg‚ÍAw‚ª‰æ–Ê‚ÉG‚ên‚ß‚½‚Æ‚«‚Éã‹L‚ÌğŒ‚ª–‚½‚³‚ê‚½ê‡‚ÉŒÄ‚Ño‚³‚ê‚é
-		//Vector3=ScreenDepthİ’è‚ÉŠî‚Ã‚­ŠJn“_
+		//ã“ã®ã‚¤ãƒ™ãƒ³ãƒˆã¯ã€æŒ‡ãŒç”»é¢ã«è§¦ã‚Œå§‹ã‚ãŸã¨ãã«ä¸Šè¨˜ã®æ¡ä»¶ãŒæº€ãŸã•ã‚ŒãŸå ´åˆã«å‘¼ã³å‡ºã•ã‚Œã‚‹
+		//Vector3=ScreenDepthè¨­å®šã«åŸºã¥ãé–‹å§‹ç‚¹
 		public Vector3Event OnWorld { get { if (onWorld == null) onWorld = new Vector3Event(); return onWorld; } }
 		[SerializeField] private Vector3Event onWorld;
 
-		//‚±‚ÌƒCƒxƒ“ƒg‚ÍAw‚ª‰æ–Ê‚ÉG‚ên‚ß‚½‚Æ‚«‚Éã‹L‚ÌğŒ‚ª–‚½‚³‚ê‚½ê‡‚ÉŒÄ‚Ño‚³‚ê‚é
-		//Vector2=‰æ–ÊƒXƒy[ƒX‚Å‚Ìw‚ÌˆÊ’u
+		//ã“ã®ã‚¤ãƒ™ãƒ³ãƒˆã¯ã€æŒ‡ãŒç”»é¢ã«è§¦ã‚Œå§‹ã‚ãŸã¨ãã«ä¸Šè¨˜ã®æ¡ä»¶ãŒæº€ãŸã•ã‚ŒãŸå ´åˆã«å‘¼ã³å‡ºã•ã‚Œã‚‹
+		//Vector2=ç”»é¢ã‚¹ãƒšãƒ¼ã‚¹ã§ã®æŒ‡ã®ä½ç½®
 		public Vector2Event OnScreen { 
 			get 
 			{

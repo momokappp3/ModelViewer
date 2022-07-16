@@ -1,13 +1,13 @@
-/*
+ï»¿/*
  * 
  * Unity
- * tag’Ç‰Á@LeanToch
- * Layer’Ç‰Á LenderTexture
+ * tagè¿½åŠ ã€€LeanToch
+ * Layerè¿½åŠ  LenderTexture
  * 
  * ================================================================
  * 
- *  ‘fŞ
- *  ƒtƒŒ[ƒ€ƒfƒUƒCƒ“@Twitter‚Åé“`@20ŒÂ‚Ü‚Å–³—¿ ‰ÁHOK
+ *  ç´ æ
+ *  ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ‡ã‚¶ã‚¤ãƒ³ã€€Twitterã§å®£ä¼ã€€20å€‹ã¾ã§ç„¡æ–™ åŠ å·¥OK
  *  
  *  1 https://frames-design.com/2015/01/02/f15051/
  *  2 https://frames-design.com/2015/01/02/f15061/
@@ -16,11 +16,11 @@
  *  5 https://frames-design.com/2015/01/02/f15021/
  *  
  *  
- *  //Sprit‚ğŒõ‚ç‚¹‚é MIT License
+ *  //Spritã‚’å…‰ã‚‰ã›ã‚‹ MIT License
  *  Git https://github.com/Elringus/SpriteGlow
  * 
- *  3Dƒ‚ƒfƒ‹
- *  crown MIT License ‰ü•ÏÏ
+ *  3Dãƒ¢ãƒ‡ãƒ«
+ *  crown MIT License æ”¹å¤‰æ¸ˆ
  * 
  * 
  * 

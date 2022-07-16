@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ public class RenderTextureSystem : MonoBehaviour
         _camera.cullingMask = 1 << _layerNum;
     }
 
-    //RenderTexture‚ðì‚è‚½‚¢‚Æ‚«ŒÄ‚Ô
+    //RenderTextureã‚’ä½œã‚ŠãŸã„ã¨ãå‘¼ã¶
     public bool Initialize(int width, int height)
     {
         Release();
@@ -36,7 +36,7 @@ public class RenderTextureSystem : MonoBehaviour
             return false;
         }
 
-        //ŽÀÛ‚É RenderTexture ƒIƒuƒWƒFƒNƒg‚ðì¬
+        //å®Ÿéš›ã« RenderTexture ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
         _renderTexture.Create();
 
         GetLayerNumber();
@@ -49,7 +49,7 @@ public class RenderTextureSystem : MonoBehaviour
         _layerNum = LayerMask.NameToLayer("RenderTexture");
     }
 
-    //“ü—Í‚·‚é‰æ‘œ@o—Í‚·‚é‰æ‘œ
+    //å…¥åŠ›ã™ã‚‹ç”»åƒã€€å‡ºåŠ›ã™ã‚‹ç”»åƒ
     private void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
         if(_renderTexture == null)

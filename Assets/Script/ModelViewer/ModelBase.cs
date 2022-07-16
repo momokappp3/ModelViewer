@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public class ModelBase : MonoBehaviour
 
     private Camera _mainCamera;
     public bool _isUpMove = false;
-    public float _diffToMiddle = 0f;  //ã‚ÌˆÊ’u‚©‚ç^‚ñ’†‚Ü‚Å‚Ì·
+    public float _diffToMiddle = 0f;  //ä¸Šã®ä½ç½®ã‹ã‚‰çœŸã‚“ä¸­ã¾ã§ã®å·®
 
     enum Sequence
     {
@@ -55,7 +55,7 @@ public class ModelBase : MonoBehaviour
     {
         if (_sequence == Sequence.MenuMove && !_isSelect)
         {
-            //”ÍˆÍŠO‚Ü‚Å“®‚©‚·
+            //ç¯„å›²å¤–ã¾ã§å‹•ã‹ã™
             if (this.gameObject.transform.position.y > Screen.height / 2)
             {
 
@@ -67,13 +67,13 @@ public class ModelBase : MonoBehaviour
 
             if (_mainCamera.WorldToScreenPoint(_buttom).y + 10f > Screen.height)
             {
-                //”ÍˆÍŠO(ã)‚ÉœŠO‚·‚é
+                //ç¯„å›²å¤–(ä¸Š)ã«é™¤å¤–ã™ã‚‹
                 Destroy(this.gameObject);
             }
 
             if (_mainCamera.WorldToScreenPoint(_top).y - 10f < 0)
             {
-                //”ÍˆÍŠO(‰º)‚ÉœŠO‚·‚é
+                //ç¯„å›²å¤–(ä¸‹)ã«é™¤å¤–ã™ã‚‹
                 Destroy(this.gameObject);
             }
         }
@@ -82,8 +82,8 @@ public class ModelBase : MonoBehaviour
             switch (_sequence)
             {
                 case Sequence.MenuMove:
-                    //^‚ñ’†‚ÉˆÚ“®‚³‚¹‚é
-                    //‘å‚«‚­‚·‚é
+                    //çœŸã‚“ä¸­ã«ç§»å‹•ã•ã›ã‚‹
+                    //å¤§ããã™ã‚‹
                     //_sequence = Sequence.Viewer;
                     break;
                 case Sequence.Viewer:

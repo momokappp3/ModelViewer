@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lean.Touch;
 
 public class Crown : MonoBehaviour
 {
-    [SerializeField] Transform _crown;  //“®‚©‚·ƒIƒuƒWƒFƒNƒg
+    [SerializeField] Transform _crown;  //å‹•ã‹ã™ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     private Camera _camera = null;
 
-    //ƒ^ƒbƒ`‚µ‚½‚ÌÀ•Ww‚ª—£‚ê‚Ä‚¢‚éê‡‘Oƒ^ƒbƒ`‚µ‚½‚ÌÀ•W
+    //ã‚¿ãƒƒãƒã—ãŸæ™‚ã®åº§æ¨™æŒ‡ãŒé›¢ã‚Œã¦ã„ã‚‹å ´åˆå‰ã‚¿ãƒƒãƒã—ãŸæ™‚ã®åº§æ¨™
     public Vector2 ScreenPosition { set; private get; }
 
     public bool _isRotateModel = false;
@@ -30,7 +30,7 @@ public class Crown : MonoBehaviour
 
     void OnFingerDown(LeanFinger finger)
     {
-        Debug.Log("ƒ^ƒbƒ`‚³‚ê‚½");
+        Debug.Log("ã‚¿ãƒƒãƒã•ã‚ŒãŸ");
         ScreenPosition = finger.StartScreenPosition;
         _targetAngle = GetRotationAngleByTargetPosition(new Vector3(ScreenPosition.x, ScreenPosition.y, 0));
 
@@ -71,22 +71,22 @@ public class Crown : MonoBehaviour
     public void OnClick()
     {
         _isRotateModel = _isRotateModel ? false : true;
-        Debug.Log("ƒNƒŠƒbƒN");
+        Debug.Log("ã‚¯ãƒªãƒƒã‚¯");
     }
 
     float GetRotationAngleByTargetPosition(Vector3 mousePosition)
     {
 
-        //©g‚ÌˆÊ’u‚ğƒ[ƒ‹ƒhÀ•W‚©‚çƒXƒNƒŠ[ƒ“À•W‚Ö•ÏŠ·‚·‚é
+        //è‡ªèº«ã®ä½ç½®ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‹ã‚‰ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã¸å¤‰æ›ã™ã‚‹
         Vector3 selfScreenPoint = _camera.WorldToScreenPoint(_crown.transform.position);
-        //ƒJƒvƒZƒ‹ˆÊ’u‚Æƒ}ƒEƒXƒNƒŠƒbƒNˆÊ’u‚ÌÀ•W‚Ì·•ª‚ğŒvZ
-        //diff x = —×•Ó y = ‘Î•Ó 
+        //ã‚«ãƒ—ã‚»ãƒ«ä½ç½®ã¨ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ä½ç½®ã®åº§æ¨™ã®å·®åˆ†ã‚’è¨ˆç®—
+        //diff x = éš£è¾º y = å¯¾è¾º 
         Vector3 diff = mousePosition - selfScreenPoint;
 
-        //Mathf.Atan2 = ƒ^ƒ“ƒWƒFƒ“ƒg‚ğZo‚Å‚«‚¸Atanƒƒ\ƒbƒh‚Éˆø”‚ğ—^‚¦‚ç‚ê‚È‚¢ê‡‚Å‚à“KØ‚ÈŠp“x‚ğ•Ô‚·
-        //Mathf.Rad2Deg “x‚©‚çƒ‰ƒWƒAƒ“‚É•ÏŠ·‚·‚é’è”i“Ç‚İæ‚èê—pj (PI * 2) / 360
+        //Mathf.Atan2 = ã‚¿ãƒ³ã‚¸ã‚§ãƒ³ãƒˆã‚’ç®—å‡ºã§ããšAtanãƒ¡ã‚½ãƒƒãƒ‰ã«å¼•æ•°ã‚’ä¸ãˆã‚‰ã‚Œãªã„å ´åˆã§ã‚‚é©åˆ‡ãªè§’åº¦ã‚’è¿”ã™
+        //Mathf.Rad2Deg åº¦ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›ã™ã‚‹å®šæ•°ï¼ˆèª­ã¿å–ã‚Šå°‚ç”¨ï¼‰ (PI * 2) / 360
         float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        //90“xˆø‚­‚±‚Æ‚Å“®‚©‚·Šp“x
+        //90åº¦å¼•ãã“ã¨ã§å‹•ã‹ã™è§’åº¦
         float finalAngle = angle - 90f;
 
         return finalAngle;

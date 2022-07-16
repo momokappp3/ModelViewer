@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,29 +7,29 @@ public class SelectMenu : MonoBehaviour
     [SerializeField] List<GameObject> _model;
     [SerializeField] Camera _camera;
     
-    private int _modelIndex = 0;  //List‚Ì‚Ç‚Ìƒ‚ƒfƒ‹‚ğ¶¬‚·‚é‚©
-    private List<GameObject> _modelInstance = new List<GameObject>();  //¶¬‚³‚ê‚Ä‚¢‚éModel(3ŒÂ‚©4ŒÂ) 
+    private int _modelIndex = 0;  //Listã®ã©ã®ãƒ¢ãƒ‡ãƒ«ã‚’ç”Ÿæˆã™ã‚‹ã‹
+    private List<GameObject> _modelInstance = new List<GameObject>();  //ç”Ÿæˆã•ã‚Œã¦ã„ã‚‹Model(3å€‹ã‹4å€‹) 
 
     private Vector2 _screenWorldRightUp = Vector2.zero;
     private Vector2 _screenWorldLeftDown = Vector2.zero;
-    //¶¬‚·‚éˆÊ’u‚Ç‚ê‚¾‚¯‹ó‚¯‚é‚©(WorldÀ•W)
+    //ç”Ÿæˆã™ã‚‹ä½ç½®ã©ã‚Œã ã‘ç©ºã‘ã‚‹ã‹(Worldåº§æ¨™)
     private float _modelOffsetY = 0f;
 
     void Start()
     {
-        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //‰Eã
-        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //¶‰º
+        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //å³ä¸Š
+        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //å·¦ä¸‹
 
         _screenWorldRightUp = new Vector2(rightUp.x, rightUp.y);
         _screenWorldLeftDown = new Vector2(leftDown.x, leftDown.y);
         _modelOffsetY = 1f;
 
-        //1ŒÂƒ‚ƒfƒ‹¶¬(ƒ‚ƒfƒ‹‚Ì^‚ñ’†‚ğˆê”Ôã‚É)
+        //1å€‹ãƒ¢ãƒ‡ãƒ«ç”Ÿæˆ(ãƒ¢ãƒ‡ãƒ«ã®çœŸã‚“ä¸­ã‚’ä¸€ç•ªä¸Šã«)
         _modelInstance.Add(Instantiate(_model[_modelIndex], new Vector3(0, _screenWorldRightUp.y, 3f), Quaternion.identity));
         _modelIndex++;
 
-        //‘O‚É¶¬‚µ‚½ƒ‚ƒfƒ‹‚Ì‰º‚É¶¬
-        // ˆø”1 Šî€‚Ìƒ‚ƒfƒ‹ ˆø”2 ã‚É¶¬‚·‚é‚©‰º‚É¶¬‚·‚é‚©
+        //å‰ã«ç”Ÿæˆã—ãŸãƒ¢ãƒ‡ãƒ«ã®ä¸‹ã«ç”Ÿæˆ
+        // å¼•æ•°1 åŸºæº–ã®ãƒ¢ãƒ‡ãƒ« å¼•æ•°2 ä¸Šã«ç”Ÿæˆã™ã‚‹ã‹ä¸‹ã«ç”Ÿæˆã™ã‚‹ã‹
         ModelGenerate();
         ModelGenerate();
     }
@@ -44,14 +44,14 @@ public class SelectMenu : MonoBehaviour
             }
         }
 #if UNITY_EDITOR
-        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //‰Eã
-        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //¶‰º
+        var rightUp = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 3));  //å³ä¸Š
+        var leftDown = _camera.ScreenToWorldPoint(new Vector3(0, 0, 3));  //å·¦ä¸‹
 
         _screenWorldRightUp = new Vector2(rightUp.x, rightUp.y);
         _screenWorldLeftDown = new Vector2(leftDown.x, leftDown.y);
 #endif
 
-        //ƒXƒƒCƒv‚Åƒ‚ƒfƒ‹‚ÌˆÊ’u‚ğˆÚ“®‚³‚¹‚é
+        //ã‚¹ãƒ¯ã‚¤ãƒ—ã§ãƒ¢ãƒ‡ãƒ«ã®ä½ç½®ã‚’ç§»å‹•ã•ã›ã‚‹
 
 
 
@@ -62,12 +62,12 @@ public class SelectMenu : MonoBehaviour
 
     }
 
-    //ˆø”‚Í¶¬‚·‚éƒ‚ƒfƒ‹‚Ìindex
+    //å¼•æ•°ã¯ç”Ÿæˆã™ã‚‹ãƒ¢ãƒ‡ãƒ«ã®index
     void ModelGenerate()
     {
-        //‘O‚É¶¬‚³‚ê‚½ƒ‚ƒfƒ‹‚Ìˆê”Ô‰º‚ÌÀ•W
+        //å‰ã«ç”Ÿæˆã•ã‚ŒãŸãƒ¢ãƒ‡ãƒ«ã®ä¸€ç•ªä¸‹ã®åº§æ¨™
         var buttomPosi = _modelInstance[_modelIndex - 1].GetComponent<ModelBase>().GetButtomY();
-        //ƒ‚ƒfƒ‹ƒTƒCƒY‚ªƒXƒNƒŠ[ƒ“c‚Ì”ÍˆÍŠO‚È‚çreturn
+        //ãƒ¢ãƒ‡ãƒ«ã‚µã‚¤ã‚ºãŒã‚¹ã‚¯ãƒªãƒ¼ãƒ³ç¸¦ã®ç¯„å›²å¤–ãªã‚‰return
         if (buttomPosi < _screenWorldLeftDown.y )
         {
             return;

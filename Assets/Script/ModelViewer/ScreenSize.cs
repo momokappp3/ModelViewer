@@ -1,30 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenSize : MonoBehaviour
 {
-    //Å‰‚Éì‚Á‚½‰æ–Ê‚Ìwidth
+    //æœ€åˆã«ä½œã£ãŸç”»é¢ã®width
     public float defaultWidth = 9.0f;
 
-    //Å‰‚Éì‚Á‚½‰æ–Ê‚Ìheight
+    //æœ€åˆã«ä½œã£ãŸç”»é¢ã®height
     public float defaultHeight = 16.0f;
 
     void Start()
     {
-        //camera.main‚ğ•Ï”‚ÉŠi”[
+        //camera.mainã‚’å¤‰æ•°ã«æ ¼ç´
         Camera mainCamera = Camera.main;
 
-        //Å‰‚Éì‚Á‚½‰æ–Ê‚ÌƒAƒXƒyƒNƒg”ä 
+        //æœ€åˆã«ä½œã£ãŸç”»é¢ã®ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯” 
         float defaultAspect = defaultWidth / defaultHeight;
 
-        //ÀÛ‚Ì‰æ–Ê‚ÌƒAƒXƒyƒNƒg”ä
+        //å®Ÿéš›ã®ç”»é¢ã®ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”
         float actualAspect = (float)Screen.width / (float)Screen.height;
 
-        //À‹@‚Æunity‰æ–Ê‚Ì”ä—¦
+        //å®Ÿæ©Ÿã¨unityç”»é¢ã®æ¯”ç‡
         float ratio = actualAspect / defaultAspect;
 
-        //ƒTƒCƒY’²®
+        //ã‚µã‚¤ã‚ºèª¿æ•´
         mainCamera.orthographicSize /= ratio;
 
     }
