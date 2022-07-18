@@ -5,7 +5,7 @@ using CW.Common;
 
 namespace Lean.Common
 {
-	/// <summary>This component allows you make the current GameObject selectable.</summary>
+	//入力引数をフォーマットされたものに変換 OnString イベントに出力
 	[HelpURL(LeanCommon.HelpUrlPrefix + "LeanSelectable")]
 	[AddComponentMenu(LeanCommon.ComponentPathPrefix + "Selectable")]
 	public class LeanSelectable : MonoBehaviour
@@ -16,15 +16,15 @@ namespace Lean.Common
 
 		public bool SelfSelected { set { if (selfSelected != value) { selfSelected = value; if (value == true) InvokeOnSelected(null); else InvokeOnDeslected(null); } } get { return selfSelected; } } [SerializeField] private bool selfSelected;
 
-		/// <summary>This is invoked every time this object is selected.
-		/// LeanSelect = The component that caused the selection (null = self selection).
-		/// NOTE: This may occur multiple times.</summary>
-		public LeanSelectEvent OnSelected { get { if (onSelected == null) onSelected = new LeanSelectEvent(); return onSelected; } } [SerializeField] private LeanSelectEvent onSelected;
+		//このオブジェクトが選択されるたびに呼び出されるLeanSelect = 選択の原因となったコンポーネント
+		//（null =自己選択）注：これは複数回発生する可能性がある
+		public LeanSelectEvent OnSelected { get { if (onSelected == null) onSelected = new LeanSelectEvent(); return onSelected; } }
+		[SerializeField] private LeanSelectEvent onSelected;
 
-		/// <summary>This is invoked every time this object is deselected.
-		/// LeanSelect = The component that caused the deselection (null = self deselection).
-		/// NOTE: This may occur multiple times.</summary>
-		public LeanSelectEvent OnDeselected { get { if (onDeselected == null) onDeselected = new LeanSelectEvent(); return onDeselected; } } [SerializeField] private LeanSelectEvent onDeselected;
+		//このオブジェクトが選択されるたびに呼び出されるLeanSelect = 選択の原因となったコンポーネント
+		//（null =自己選択）注：これは複数回発生する可能性がある
+		public LeanSelectEvent OnDeselected { get { if (onDeselected == null) onDeselected = new LeanSelectEvent(); return onDeselected; } }
+		[SerializeField] private LeanSelectEvent onDeselected;
 
 		public static event System.Action<LeanSelectable> OnAnyEnabled;
 
@@ -36,7 +36,7 @@ namespace Lean.Common
 
 		protected static List<LeanSelectable> tempSelectables = new List<LeanSelectable>();
 
-		/// <summary>This will tell you how many <b>LeanSelect</b> components in the scene currently have this object selected.</summary>
+		//これにより、シーン内で現在このオブジェクトが選択されている LeanSelect コンポーネントの数がわかる
 		public int SelectedCount
 		{
 			get
@@ -55,12 +55,11 @@ namespace Lean.Common
 						count += 1;
 					}
 				}
-
 				return count;
 			}
 		}
 
-		/// <summary>This will tell you if this object is self selected, or selected by any <b>LeanSelect</b> components in the scene.</summary>
+		//このオブジェクトが自己選択されているか、シーン内の LeanSelectコンポーネントによって選択されているかを示す
 		public bool IsSelected
 		{
 			get
@@ -77,7 +76,6 @@ namespace Lean.Common
 						return true;
 					}
 				}
-
 				return false;
 			}
 		}
@@ -95,7 +93,6 @@ namespace Lean.Common
 						count += 1;
 					}
 				}
-
 				return count;
 			}
 		}
@@ -111,7 +108,7 @@ namespace Lean.Common
 			}
 		}
 
-		/// <summary>This deselects all objects in the scene.</summary>
+		//これにより、シーン内のすべてのオブジェクトの選択が解除される
 		public static void DeselectAll()
 		{
 			foreach (var select in LeanSelect.Instances)
@@ -234,7 +231,6 @@ namespace Lean.Common.Editor
 					return true;
 				}
 			}
-
 			return false;
 		}
 

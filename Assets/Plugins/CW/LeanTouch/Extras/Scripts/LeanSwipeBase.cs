@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using CW.Common;
 
 namespace Lean.Touch
 {
-	/// <summary>This is the base class for all swiping actions.</summary>
+	//これはすべてのスワイプアクションの基本クラス
 	public abstract class LeanSwipeBase : MonoBehaviour
 	{
 		public enum ModifyType
@@ -27,60 +27,64 @@ namespace Lean.Touch
 		[System.Serializable] public class Vector3Event : UnityEvent<Vector3> {}
 		[System.Serializable] public class Vector3Vector3Event : UnityEvent<Vector3, Vector3> {}
 
-		/// <summary>The required angle of the swipe in degrees.
-		/// 0 = Up.
-		/// 90 = Right.
-		/// 180 = Down.
-		/// 270 = Left.</summary>
-		public float RequiredAngle { set { requiredAngle = value; } get { return requiredAngle; } } [SerializeField] private float requiredAngle;
+		//必要なスワイプ角度 (度)
+		//0 = 上 90 = 右 180 = 下 270 = 左
+		public float RequiredAngle { set { requiredAngle = value; } get { return requiredAngle; } }
+		[SerializeField] private float requiredAngle;
 
-		/// <summary>The angle of the arc in degrees that the swipe must be inside.
-		/// -1 = No requirement.
-		/// 90 = Quarter circle (+- 45 degrees).
-		/// 180 = Semicircle (+- 90 degrees).</summary>
-		public float RequiredArc { set { requiredArc = value; } get { return requiredArc; } } [SerializeField] private float requiredArc = -1.0f;
+		//スワイプが内側にある必要がある円弧の角度(度)
+		//-1 = 要件なし 90 = 四分円（+- 45度) 180 = 半円（+- 90度）
+		public float RequiredArc { set { requiredArc = value; } get { return requiredArc; } }
+		[SerializeField] private float requiredArc = -1.0f;
 
-		/// <summary>Called on the first frame the conditions are met.</summary>
-		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } } [SerializeField] public LeanFingerEvent onFinger;
+		//条件が満たされた最初のフレームで呼び出される
+		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } }
+		[SerializeField] public LeanFingerEvent onFinger;
 
-		/// <summary>Should the swipe delta be modified before use?
-		/// Normalize = The swipe delta magnitude/length will be set to 1.
-		/// Normalize4 = The swipe delta will be + or - 1 on either the x or y axis.</summary>
-		public ModifyType Modify { set { modify = value; } get { return modify; } } [SerializeField] private ModifyType modify;
+		//スワイプデルタは使用前に変更する必要があるか
+		//Normalize = スワイプデルタの大きさ / 長さは1に設定される
+		//Normalize4 = スワイプデルタはx軸またはy軸のいずれかで+または-1になる
+		public ModifyType Modify { set { modify = value; } get { return modify; } }
+		[SerializeField] private ModifyType modify;
 
-		/// <summary>The coordinate space of the OnDelta values.</summary>
-		public CoordinateType Coordinate { set { coordinate = value; } get { return coordinate; } } [SerializeField] private CoordinateType coordinate;
+		//OnDelta値の座標空間
+		public CoordinateType Coordinate { set { coordinate = value; } get { return coordinate; } }
+		[SerializeField] private CoordinateType coordinate;
 
-		/// <summary>The swipe delta will be multiplied by this value.</summary>
-		public float Multiplier { set { multiplier = value; } get { return multiplier; } } [SerializeField] private float multiplier = 1.0f;
+		//スワイプデルタはこの値で乗算される
+		public float Multiplier { set { multiplier = value; } get { return multiplier; } }
+		[SerializeField] private float multiplier = 1.0f;
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Vector2 = The scaled swipe delta.</summary>
-		public Vector2Event OnDelta { get { if (onDelta == null) onDelta = new Vector2Event(); return onDelta; } } [SerializeField] public Vector2Event onDelta;
+		//最初のフレームで呼び出されて条件が満たされる
+		//Vector2 = スケーリングされたスワイプデルタ
+		public Vector2Event OnDelta { get { if (onDelta == null) onDelta = new Vector2Event(); return onDelta; } }
+		[SerializeField] public Vector2Event onDelta;
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Float = The distance/magnitude/length of the swipe delta vector.</summary>
-		public FloatEvent OnDistance { get { if (onDistance == null) onDistance = new FloatEvent(); return onDistance; } } [SerializeField] public FloatEvent onDistance;
+		//最初のフレームで呼び出されて条件が満たされる Float = スワイプデルタベクトルの距離 / 大きさ / 長さ
+		public FloatEvent OnDistance { get { if (onDistance == null) onDistance = new FloatEvent(); return onDistance; } }
+		[SerializeField] public FloatEvent onDistance;
 
-		/// <summary>The method used to find world coordinates from a finger. See LeanScreenDepth documentation for more information.</summary>
+		//指からWorld座標を見つけるために使用されるメソッド。 詳細については、LeanScreenDepthのドキュメントを参照
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Vector3 = Start point in world space.</summary>
-		public Vector3Event OnWorldFrom { get { if (onWorldFrom == null) onWorldFrom = new Vector3Event(); return onWorldFrom; } } [SerializeField] public Vector3Event onWorldFrom;
+		//最初のフレームで呼び出されて条件が満たされる Vector3 = ワールドスペースの開始点
+		public Vector3Event OnWorldFrom { get { if (onWorldFrom == null) onWorldFrom = new Vector3Event(); return onWorldFrom; } }
+		[SerializeField] public Vector3Event onWorldFrom;
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Vector3 = End point in world space.</summary>
-		public Vector3Event OnWorldTo { get { if (onWorldTo == null) onWorldTo = new Vector3Event(); return onWorldTo; } } [SerializeField] public Vector3Event onWorldTo;
+		//最初のフレームで呼び出されて条件が満たされる
+		//Vector3 = ワールドスペースのエンドポイント
+		public Vector3Event OnWorldTo { get { if (onWorldTo == null) onWorldTo = new Vector3Event(); return onWorldTo; } }
+		[SerializeField] public Vector3Event onWorldTo;
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Vector3 = The vector between the start and end points in world space.</summary>
-		public Vector3Event OnWorldDelta { get { if (onWorldDelta == null) onWorldDelta = new Vector3Event(); return onWorldDelta; } } [SerializeField] public Vector3Event onWorldDelta;
+		//最初のフレームで呼び出されて条件が満たされる
+		//Vector3 = ワールドスペースの開始点と終了点の間のベクトル
+		public Vector3Event OnWorldDelta { get { if (onWorldDelta == null) onWorldDelta = new Vector3Event(); return onWorldDelta; } }
+		[SerializeField] public Vector3Event onWorldDelta;
 
-		/// <summary>Called on the first frame the conditions are met.
-		/// Vector3 = Start point in world space.
-		/// Vector3 = End point in world space.</summary>
-		public Vector3Vector3Event OnWorldFromTo { get { if (onWorldFromTo == null) onWorldFromTo = new Vector3Vector3Event(); return onWorldFromTo; } } [SerializeField] public Vector3Vector3Event onWorldFromTo;
+		//最初のフレームで呼び出されて条件が満たされる
+		//Vector3 = ワールドスペースの開始点 Vector3 = ワールドスペースのエンドポイント
+		public Vector3Vector3Event OnWorldFromTo { get { if (onWorldFromTo == null) onWorldFromTo = new Vector3Vector3Event(); return onWorldFromTo; } } 
+		[SerializeField] public Vector3Vector3Event onWorldFromTo;
 
 		protected bool AngleIsValid(Vector2 vector)
 		{
@@ -94,7 +98,6 @@ namespace Lean.Touch
 					return false;
 				}
 			}
-
 			return true;
 		}
 		

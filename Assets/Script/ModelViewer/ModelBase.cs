@@ -11,6 +11,8 @@ public class ModelBase : MonoBehaviour
     public Vector3 _top = Vector3.zero;
     public Vector3 _buttom = Vector3.zero;
 
+    private Vector2 _screenWorldHegitPosi = Vector2.zero;
+
     private Camera _mainCamera;
     public bool _isUpMove = false;
     public float _diffToMiddle = 0f;  //上の位置から真ん中までの差
@@ -55,23 +57,25 @@ public class ModelBase : MonoBehaviour
     {
         if (_sequence == Sequence.MenuMove && !_isSelect)
         {
+            /*
             //範囲外まで動かす
             if (this.gameObject.transform.position.y > Screen.height / 2)
             {
+
 
             }
             else
             {
 
-            }
+            }*/
 
-            if (_mainCamera.WorldToScreenPoint(_buttom).y + 10f > Screen.height)
+            if (_mainCamera.WorldToScreenPoint(_buttom).y + 10f > _screenWorldHegitPosi.x)
             {
                 //範囲外(上)に除外する
                 Destroy(this.gameObject);
             }
 
-            if (_mainCamera.WorldToScreenPoint(_top).y - 10f < 0)
+            if (_mainCamera.WorldToScreenPoint(_top).y - 10f < _screenWorldHegitPosi.y)
             {
                 //範囲外(下)に除外する
                 Destroy(this.gameObject);
@@ -95,5 +99,9 @@ public class ModelBase : MonoBehaviour
                     break;
             }
         }
+    }
+    public void SetScreenWorldHeightPosi(Vector2 posi)
+    {
+        _screenWorldHegitPosi = posi;
     }
 }

@@ -264,7 +264,7 @@ namespace Lean.Touch
 			return screenPosition;
 		}
 
-		//現在の指が「targetAge」にあったときに記録された世界が返される
+		//現在の指が「targetAge」にあったときに記録されたWorld座標が返される
 		public Vector3 GetSnapshotWorldPosition(float targetAge, float distance, Camera camera = null)
 		{
 			//カメラが存在することを確認
@@ -326,7 +326,6 @@ namespace Lean.Touch
 			{
 				d -= Mathf.PI * 2.0f;
 			}
-
 			return d;
 		}
 

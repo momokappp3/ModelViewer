@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Touch;
 
 public class SelectMenu : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class SelectMenu : MonoBehaviour
     private Vector2 _screenWorldLeftDown = Vector2.zero;
     //生成する位置どれだけ空けるか(World座標)
     private float _modelOffsetY = 0f;
+
+   // private float 
 
     void Start()
     {
@@ -32,7 +35,33 @@ public class SelectMenu : MonoBehaviour
         // 引数1 基準のモデル 引数2 上に生成するか下に生成するか
         ModelGenerate();
         ModelGenerate();
+
+        //swipeの登録
+        LeanTouch.OnFingerSwipe += HandleFingerSwipe;
     }
+    
+    private void HandleFingerSwipe(LeanFinger finger)
+    {
+        /*
+        if (ignoreStartedOverGui == true && finger.StartedOverGui == true)
+        {
+            return;
+        }
+
+        if (ignoreIsOverGui == true && finger.IsOverGui == true)
+        {
+            return;
+        }
+
+        if (requiredSelectable != null && requiredSelectable.IsSelected == false)
+        {
+            return;
+        }
+        */
+
+        //HandleFingerSwipe(finger, finger.StartScreenPosition, finger.ScreenPosition);
+    }
+    
 
     void Update()
     {
@@ -49,6 +78,15 @@ public class SelectMenu : MonoBehaviour
 
         _screenWorldRightUp = new Vector2(rightUp.x, rightUp.y);
         _screenWorldLeftDown = new Vector2(leftDown.x, leftDown.y);
+
+        for (int i = 0; i < _modelInstance.Count; i++)
+        {
+            if (_modelInstance[i] != null)
+            {
+                _modelInstance[i].GetComponent<ModelBase>().SetScreenWorldHeightPosi
+                    (new Vector2(_screenWorldRightUp.y, _screenWorldLeftDown.y));
+            }
+        }
 #endif
 
         //スワイプでモデルの位置を移動させる
@@ -73,7 +111,12 @@ public class SelectMenu : MonoBehaviour
             return;
         }
         _modelInstance.Add(Instantiate(_model[_modelIndex],
-            new Vector3(0, buttomPosi - _modelOffsetY - _model[_modelIndex - 1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f), Quaternion.identity));
+            new Vector3(0, buttomPosi - _modelOffsetY - _model[_modelIndex - 1].GetComponent<ModelBase>().GetDiffToMiddle(), 3f),
+            Quaternion.identity));
+
+
+        _modelInstance[_modelInstance.Count].GetComponent<ModelBase>().SetScreenWorldHeightPosi
+            (new Vector2(_screenWorldRightUp.y, _screenWorldLeftDown.y));
         _modelIndex++;
     }
 }
