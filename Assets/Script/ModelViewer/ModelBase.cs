@@ -8,9 +8,6 @@ public class ModelBase : MonoBehaviour
     [SerializeField] private Transform _buttomObject;
     [SerializeField] private GameObject _enableToViewer;
 
-    public Vector3 _top = Vector3.zero;
-    public Vector3 _buttom = Vector3.zero;
-
     private Vector2 _screenWorldHegitPosi = Vector2.zero;
 
     private Camera _mainCamera;
@@ -35,16 +32,17 @@ public class ModelBase : MonoBehaviour
         _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         _enableToViewer.SetActive(false);
 
-        _diffToMiddle = _top.y - this.transform.position.y;
-
-        _top = _topObject.transform.position;
-        _buttom = _buttomObject.transform.position;
+        _diffToMiddle = _topObject.transform.position.y - this.transform.position.y;
     }
 
     public float GetButtomY()
     {
-        _buttom = _buttomObject.transform.position;
-        return _buttom.y;
+        return _buttomObject.transform.position.y;
+    }
+
+    public float GetTopY()
+    {
+        return _topObject.transform.position.y;
     }
 
     public float GetDiffToMiddle()
@@ -69,13 +67,13 @@ public class ModelBase : MonoBehaviour
 
             }*/
 
-            if (_mainCamera.WorldToScreenPoint(_buttom).y + 10f > _screenWorldHegitPosi.x)
+            if (_mainCamera.WorldToScreenPoint(_buttomObject.transform.position).y + 10f > _screenWorldHegitPosi.x)
             {
                 //範囲外(上)に除外する
                 Destroy(this.gameObject);
             }
 
-            if (_mainCamera.WorldToScreenPoint(_top).y - 10f < _screenWorldHegitPosi.y)
+            if (_mainCamera.WorldToScreenPoint(_topObject.transform.position).y - 10f < _screenWorldHegitPosi.y)
             {
                 //範囲外(下)に除外する
                 Destroy(this.gameObject);

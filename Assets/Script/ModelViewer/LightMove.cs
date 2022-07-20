@@ -23,6 +23,6 @@ public class LightMove: MonoBehaviour
         Vector3 playerPos = Player.transform.position;
 
         //ƒJƒƒ‰‚ğ‰ñ“]‚³‚¹‚é
-        transform.RotateAround(playerPos, 5f * rotateSpeed);
+        //transform.RotateAround(playerPos, 5f * rotateSpeed);
     }
 }
