@@ -30,10 +30,11 @@ public class SelectMenu : MonoBehaviour
 
         //前に生成したモデルの下に生成
         // 引数1 基準にするモデルIndex 引数2 上に生成するか
-        ModelGenerate(0,true);
+        ModelGenerate(0,false);
 
         //ここの引数が0としてわたっている
-        ModelGenerate(1, true);
+        //デクリメントすると前の値も変わる
+        ModelGenerate(1, false);
 
         //swipeの登録
         LeanTouch.OnFingerSwipe += HandleFingerSwipe;
