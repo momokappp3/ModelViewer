@@ -87,8 +87,9 @@ namespace Lean.Touch
 		//これは、指をシミュレートするときに呼び出される<b> AddFinger</b>メソッドを呼び出してそれらをシミュレートできる
 		public event System.Action OnSimulateFingers;
 
-		//これにより、タップを登録するために指を上下に動かすまでに必要な秒数を設定できる
-		public float TapThreshold { set { tapThreshold = value; } get { return tapThreshold; } } [SerializeField] private float tapThreshold = DEFAULT_TAP_THRESHOLD;
+		//これにより、タップを登録するために指を上下に動かすまでに必要な秒数を設定
+		public float TapThreshold { set { tapThreshold = value; } get { return tapThreshold; } }
+		[SerializeField] private float tapThreshold = DEFAULT_TAP_THRESHOLD;
 
 		public static float CurrentTapThreshold
 		{

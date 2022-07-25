@@ -12,18 +12,39 @@ namespace Lean.Common
 	{
 		[System.Serializable] public class LeanSelectEvent : UnityEvent<LeanSelect> {}
 
-		public static LinkedList<LeanSelectable> Instances = new LinkedList<LeanSelectable>(); [System.NonSerialized] private LinkedListNode<LeanSelectable> instancesNode;
+		//途中に要素を追加したり削除したりするのはListなどは効率が悪い
+		//途中に要素などを追加するときはLinledListを使う
+		public static LinkedList<LeanSelectable> Instances = new LinkedList<LeanSelectable>();
+		[System.NonSerialized] private LinkedListNode<LeanSelectable> instancesNode;
 
-		public bool SelfSelected { set { if (selfSelected != value) { selfSelected = value; if (value == true) InvokeOnSelected(null); else InvokeOnDeslected(null); } } get { return selfSelected; } } [SerializeField] private bool selfSelected;
+		public bool SelfSelected { 
+			set {
+				if (selfSelected != value) {
+					selfSelected = value;
+					if (value == true) InvokeOnSelected(null);
+					else InvokeOnDeslected(null); 
+				}
+			} get { return selfSelected; } }
+		[SerializeField] private bool selfSelected;
 
 		//このオブジェクトが選択されるたびに呼び出されるLeanSelect = 選択の原因となったコンポーネント
 		//（null =自己選択）注：これは複数回発生する可能性がある
-		public LeanSelectEvent OnSelected { get { if (onSelected == null) onSelected = new LeanSelectEvent(); return onSelected; } }
+		public LeanSelectEvent OnSelected {
+			get {
+				if (onSelected == null) onSelected = new LeanSelectEvent();
+				return onSelected;
+			}
+		}
 		[SerializeField] private LeanSelectEvent onSelected;
 
 		//このオブジェクトが選択されるたびに呼び出されるLeanSelect = 選択の原因となったコンポーネント
 		//（null =自己選択）注：これは複数回発生する可能性がある
-		public LeanSelectEvent OnDeselected { get { if (onDeselected == null) onDeselected = new LeanSelectEvent(); return onDeselected; } }
+		public LeanSelectEvent OnDeselected {
+			get {
+				if (onDeselected == null) onDeselected = new LeanSelectEvent();
+				return onDeselected; 
+			}
+		}
 		[SerializeField] private LeanSelectEvent onDeselected;
 
 		public static event System.Action<LeanSelectable> OnAnyEnabled;

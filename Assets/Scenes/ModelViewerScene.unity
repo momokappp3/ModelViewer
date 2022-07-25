@@ -136,6 +136,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1935281094642409236, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: onDelta.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935281094642409236, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: onDelta.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2876566383813763464}
+    - target: {fileID: 1935281094642409236, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: onDelta.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDelta
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935281094642409236, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: onDelta.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SelectMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2876566383735095588, guid: 6f76cb9703723f841b00ec733120d2fb,
         type: 3}
       propertyPath: m_Name
@@ -156,6 +176,11 @@ PrefabInstance:
       propertyPath: _testCamera
       value: 
       objectReference: {fileID: 1767154705}
+    - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+        type: 3}
+      propertyPath: _leanFingerSwipe
+      value: 
+      objectReference: {fileID: 2876566383813763463}
     - target: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
         type: 3}
       propertyPath: _model.Array.size
@@ -298,3 +323,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f76cb9703723f841b00ec733120d2fb, type: 3}
+--- !u!1 &2876566383813763462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876566383735095588, guid: 6f76cb9703723f841b00ec733120d2fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876566383813763461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2876566383813763463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1935281094642409236, guid: 6f76cb9703723f841b00ec733120d2fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876566383813763461}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b29544581cbff48a74923442363fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2876566383813763464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2876566383735095590, guid: 6f76cb9703723f841b00ec733120d2fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2876566383813763461}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876566383813763462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6b6144cdaadac4382170edb94df5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2876566383813763467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876566383813763462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7efa857135ee3242bb57cd8a91087c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  format: Current Value = {0}
+  onString:
+    m_PersistentCalls:
+      m_Calls: []

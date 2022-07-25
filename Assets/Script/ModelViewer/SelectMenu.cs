@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lean.Touch;
 
+using System.Collections.Specialized;
+
 public class SelectMenu : MonoBehaviour
 {
     [SerializeField] List<GameObject> _model;
-    //private int _modelIndex = 0;  //どのモデルを生成するか
     [SerializeField] Camera _camera;
+    [SerializeField] LeanFingerSwipe _leanFingerSwipe;
     
     private List<GameObject> _modelInstance = new List<GameObject>();  //生成されているModel(3個か4個) 
+    private List<int> _modelInsIndex = new List<int>();  //どのモデルを生成するか
+    //private Dictionary<int,GameObject> _d_modelInstance = new Dictionary<int, GameObject>();
 
     private Vector2 _screenWorldRightUp = Vector2.zero;
     private Vector2 _screenWorldLeftDown = Vector2.zero;
     
     private float _modelOffsetY = 0f;  //生成する位置どれだけ空けるか(World座標)
+
+
+    //スワイプ中に呼ばれる
+    public void OnDelta(Vector2 delta)
+    {
+        //delta分動かす
+    }
 
     void Start()
     {
@@ -26,42 +37,17 @@ public class SelectMenu : MonoBehaviour
         _modelOffsetY = 1f;
 
         //1個モデル生成(モデルの真ん中を一番上に)
+        //_modelInstance.Add(Instantiate(_model[0], new Vector3(0, _screenWorldRightUp.y, 3f), Quaternion.identity));
+
         _modelInstance.Add(Instantiate(_model[0], new Vector3(0, _screenWorldRightUp.y, 3f), Quaternion.identity));
+        _modelInsIndex.Add(0);
 
         //前に生成したモデルの下に生成
         // 引数1 基準にするモデルIndex 引数2 上に生成するか
-        ModelGenerate(0,false);
+        ModelGenerate(0,true);
+        ModelGenerate(1, true);
 
-        //ここの引数が0としてわたっている
-        //デクリメントすると前の値も変わる
-        ModelGenerate(1, false);
-
-        //swipeの登録
-        LeanTouch.OnFingerSwipe += HandleFingerSwipe;
     }
-    
-    private void HandleFingerSwipe(LeanFinger finger)
-    {
-        /*
-        if (ignoreStartedOverGui == true && finger.StartedOverGui == true)
-        {
-            return;
-        }
-
-        if (ignoreIsOverGui == true && finger.IsOverGui == true)
-        {
-            return;
-        }
-
-        if (requiredSelectable != null && requiredSelectable.IsSelected == false)
-        {
-            return;
-        }
-        */
-
-        //HandleFingerSwipe(finger, finger.StartScreenPosition, finger.ScreenPosition);
-    }
-    
 
     void Update()
     {
@@ -70,6 +56,7 @@ public class SelectMenu : MonoBehaviour
             if (_modelInstance[i] == null)
             {
                 _modelInstance.Remove(_modelInstance[i]);
+                _modelInsIndex.Remove(_modelInsIndex[i]);
             }
         }
 #if UNITY_EDITOR
@@ -101,30 +88,32 @@ public class SelectMenu : MonoBehaviour
     //引数 = 生成する基準のモデルのindex,上か下か
     void ModelGenerate(int preIndex,bool up)
     {
-        //基準のモデルの下に作る
-        if (!up)
+        var modelInstance = _modelInstance[preIndex];
+        var preModelIndex = _modelInsIndex[preIndex];
+        var modelBase = modelInstance.GetComponent<ModelBase>();
+        var modelIndex = -1;
+
+        if (up)
         {
-            var modelIndex = _model.Count == preIndex ? 0 : preIndex + 1;
-            var buttomPosi = _modelInstance[preIndex].GetComponent<ModelBase>().GetButtomY();
+            modelIndex = 0 == preModelIndex ? _model.Count - 1 : preModelIndex - 1;
+            var topPos = modelBase.GetTopY();
+            var pos = new Vector3(0, topPos + _modelOffsetY + modelBase.GetDiffToMiddle(), 3f);
 
-            _modelInstance.Add(Instantiate(_model[modelIndex],
-                new Vector3(0, buttomPosi - _modelOffsetY - _modelInstance[preIndex].GetComponent<ModelBase>().GetDiffToMiddle(), 3f),
-                Quaternion.identity));
-
-            //ここで落ちる
-            _modelInstance[modelIndex].GetComponent<ModelBase>().SetScreenWorldHeightPosi
-                (new Vector2(_screenWorldRightUp.y, _screenWorldLeftDown.y));
-            //_modelIndex++;
+            _modelInstance.Add(Instantiate(_model[modelIndex], pos, Quaternion.identity));
         }
         else
         {
-            var modelIndex = 0 == preIndex ? _model.Count - 1 : preIndex -= 1;
-            var topPosi = _modelInstance[preIndex].GetComponent<ModelBase>().GetTopY();
+            modelIndex = _model.Count == preModelIndex ? 0 : preModelIndex + 1;
+            var buttomPos = modelBase.GetButtomY();
+            var pos = new Vector3(0, buttomPos - _modelOffsetY - modelBase.GetDiffToMiddle(), 3f);
 
-            _modelInstance.Add(Instantiate(_model[modelIndex],
-                new Vector3(0, topPosi + _modelOffsetY + _modelInstance[preIndex].GetComponent<ModelBase>().GetDiffToMiddle(), 3f),
-                Quaternion.identity));
-            //_modelIndex++;
+            _modelInstance.Add(Instantiate(_model[modelIndex],pos,Quaternion.identity));
         }
+
+        _modelInsIndex.Add(modelIndex);
+
+        var addModelBace = _modelInstance[_modelInstance.Count - 1].GetComponent<ModelBase>();
+
+        addModelBace.SetScreenWorldHeightPosi(new Vector2(_screenWorldRightUp.y, _screenWorldLeftDown.y));
     }
 }

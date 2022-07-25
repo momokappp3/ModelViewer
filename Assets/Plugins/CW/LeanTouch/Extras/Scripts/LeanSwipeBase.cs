@@ -38,7 +38,12 @@ namespace Lean.Touch
 		[SerializeField] private float requiredArc = -1.0f;
 
 		//条件が満たされた最初のフレームで呼び出される
-		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } }
+		public LeanFingerEvent OnFinger {
+			get {
+				if (onFinger == null) onFinger = new LeanFingerEvent();
+				return onFinger;
+			}
+		}
 		[SerializeField] public LeanFingerEvent onFinger;
 
 		//スワイプデルタは使用前に変更する必要があるか
@@ -68,22 +73,43 @@ namespace Lean.Touch
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
 		//最初のフレームで呼び出されて条件が満たされる Vector3 = ワールドスペースの開始点
-		public Vector3Event OnWorldFrom { get { if (onWorldFrom == null) onWorldFrom = new Vector3Event(); return onWorldFrom; } }
+		public Vector3Event OnWorldFrom {
+			get
+			{
+				if (onWorldFrom == null) onWorldFrom = new Vector3Event();
+				return onWorldFrom;
+			}
+		}
 		[SerializeField] public Vector3Event onWorldFrom;
 
 		//最初のフレームで呼び出されて条件が満たされる
 		//Vector3 = ワールドスペースのエンドポイント
-		public Vector3Event OnWorldTo { get { if (onWorldTo == null) onWorldTo = new Vector3Event(); return onWorldTo; } }
+		public Vector3Event OnWorldTo {
+			get {
+				if (onWorldTo == null) onWorldTo = new Vector3Event(); 
+				return onWorldTo;
+			}
+		}
 		[SerializeField] public Vector3Event onWorldTo;
 
 		//最初のフレームで呼び出されて条件が満たされる
 		//Vector3 = ワールドスペースの開始点と終了点の間のベクトル
-		public Vector3Event OnWorldDelta { get { if (onWorldDelta == null) onWorldDelta = new Vector3Event(); return onWorldDelta; } }
+		public Vector3Event OnWorldDelta {
+			get { 
+				if (onWorldDelta == null) onWorldDelta = new Vector3Event();
+				return onWorldDelta;
+			}
+		}
 		[SerializeField] public Vector3Event onWorldDelta;
 
 		//最初のフレームで呼び出されて条件が満たされる
 		//Vector3 = ワールドスペースの開始点 Vector3 = ワールドスペースのエンドポイント
-		public Vector3Vector3Event OnWorldFromTo { get { if (onWorldFromTo == null) onWorldFromTo = new Vector3Vector3Event(); return onWorldFromTo; } } 
+		public Vector3Vector3Event OnWorldFromTo {
+			get {
+				if (onWorldFromTo == null) onWorldFromTo = new Vector3Vector3Event();
+				return onWorldFromTo;
+			}
+		} 
 		[SerializeField] public Vector3Vector3Event onWorldFromTo;
 
 		protected bool AngleIsValid(Vector2 vector)
@@ -151,6 +177,7 @@ namespace Lean.Touch
 				var worldFrom = ScreenDepth.Convert(screenFrom, gameObject);
 				var worldTo   = ScreenDepth.Convert(screenTo, gameObject);
 
+				//アクションを登録
 				if (onWorldFrom != null)
 				{
 					onWorldFrom.Invoke(worldFrom);
